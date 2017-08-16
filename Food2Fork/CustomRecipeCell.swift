@@ -9,5 +9,6 @@
 import UIKit
 
 class CustomRecipeCell: UITableViewCell {
-    
+    @IBOutlet weak var recipeImage: UIImageView!
+    @IBOutlet weak var recipeTitleLabel: UILabel!
 }
