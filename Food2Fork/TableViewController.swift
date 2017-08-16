@@ -13,13 +13,12 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     var searchController: UISearchController!
     var resultsController = UITableViewController()
     var searchPhrase = String()
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        var preferredStatusBarStyle: UIStatusBarStyle {
-            return UIStatusBarStyle.lightContent
-        }
         
         self.resultsController.tableView.dataSource = self
         self.resultsController.tableView.delegate = self
@@ -51,10 +50,10 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeue(CustomRecipeCell.self, for: indexPath)
-        let imageView = cell.recipeImage
+        let imageView = cell.recipeImage!
         
         cell.recipeTitleLabel.text = "Test \(indexPath.row+1)"
-        fadeBottom(of: imageView!)
+        fadeBottom(of: imageView)
         cell.backgroundView = imageView
         cell.recipeImage.image = #imageLiteral(resourceName: "testImageRecipe")
         
