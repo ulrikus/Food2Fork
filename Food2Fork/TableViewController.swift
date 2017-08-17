@@ -13,9 +13,6 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     var searchController: UISearchController!
     var resultsController = UITableViewController()
     var searchPhrase = String()
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,8 +52,12 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
         cell.recipeTitleLabel.text = "Test \(indexPath.row+1)"
         fadeBottom(of: imageView)
         cell.backgroundView = imageView
-        cell.recipeImage.image = #imageLiteral(resourceName: "testImageRecipe")
         
+        if indexPath.row % 2 == 0 {
+            cell.recipeImage.image = #imageLiteral(resourceName: "testImageRecipe")
+        } else {
+            cell.recipeImage.image = #imageLiteral(resourceName: "testImageRecipe3")
+        }
         return cell
     }
     
