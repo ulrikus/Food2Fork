@@ -11,4 +11,5 @@ import UIKit
 extension UIColor {
     static let foodGreen = UIColor(red: 130/255, green: 212/255, blue: 90/255, alpha: 1)
     static let foodBlack = UIColor(red: 49/255, green: 49/255, blue: 49/255, alpha: 1)
+    static let foodWhite = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
 }

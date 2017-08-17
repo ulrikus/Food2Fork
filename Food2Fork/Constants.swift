@@ -25,7 +25,7 @@ struct Constants {
         static let Sort = "sort"            // (optional) How the results should be sorted
         static let Page = "page"            // (optional) Used to get additional results (search only)
         static let SearchQuery = "q"        // (optional) Search Query (Ingredients should be separated by commas). If this is omitted top rated recipes will be returned
-        static let RecipeId = "recipe_id"   // Id of desired recipe as returned by Search Query
+        static let RecipeId = "rId"         // Id of desired recipe as returned by Search Query
     }
     
     // MARK: Food2Fork Parameter Values
@@ -49,10 +49,12 @@ struct Constants {
         static let SocialRank = "social_rank"           // The Social Ranking of the Recipe (As determined by our Ranking Algorithm)
         static let Page = "page"                        // The page number that is being returned (To keep track of concurrent requests)
         static let Ingredients = "ingredients"          // The ingredients of this recipe
+        static let RecipeId = "recipe_id"               // Id of desired recipe as returned by Search Query
     }
     
     // MARK: String Literals
     struct StringLiterals {
         static let SegueIdentifier = "detailViewSegue"
+        static let ReuseCellIdentifier = "recipeDetailsCell"
     }
 }

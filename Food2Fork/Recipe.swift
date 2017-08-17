@@ -8,8 +8,20 @@
 
 import Foundation
 
-struct Recipe {
+struct ListRecipe {
     let recipeId: String
     let title: String
     let imageUrlString: String
+}
+
+struct DetailRecipe {
+    let recipeId: String
+    let title: String
+    let imageUrlString: String
+    let sourceUrlString: String
+    let food2ForkUrlString: String
+    let publisherName: String
+    let publisherUrl: String
+    let socialRank: String
+    let ingredients: [String]
 }
