@@ -50,4 +50,15 @@ struct Constants {
         static let Page = "page"                        // The page number that is being returned (To keep track of concurrent requests)
         static let Ingredients = "ingredients"          // The ingredients of this recipe
     }
+    
+    // MARK: String Literals
+    struct StringLiterals {
+        static let SegueIdentifier = "detailViewSegue"
+    }
+    
+    // MARK: Colors
+    struct Color {
+        static let foodGreen = UIColor(red: 130/255, green: 212/255, blue: 90/255, alpha: 1)
+        static let foodBlack = UIColor(red: 49/255, green: 49/255, blue: 49/255, alpha: 1)
+    }
 }

@@ -9,14 +9,10 @@
 import UIKit
 
 class TableViewController: UITableViewController, UISearchBarDelegate {
-
-    let segueIdentifier = "detailViewSegue"
     
     var searchController: UISearchController!
     var searchPhrase = String()
     var food2ForkImagesResult = [Recipe]()    // For storing image titles and URLs
-    let foodGreen = UIColor(red: 130/255, green: 212/255, blue: 90/255, alpha: 1)
-    let foodBlack = UIColor(red: 49/255, green: 49/255, blue: 49/255, alpha: 1)
     var recipeToPass: Recipe?
     
     override func viewDidLoad() {
@@ -26,11 +22,11 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
         self.navigationItem.titleView = self.searchController.searchBar
         self.searchController.hidesNavigationBarDuringPresentation = false
         
-        navigationController?.navigationBar.barTintColor = foodBlack
-        navigationController?.navigationBar.tintColor = foodGreen
+        navigationController?.navigationBar.barTintColor = Constants.Color.foodBlack
+        navigationController?.navigationBar.tintColor = Constants.Color.foodGreen
         
         self.tableView.registerNib(CustomRecipeCell.self)
-        self.tableView.backgroundColor = foodBlack
+        self.tableView.backgroundColor = Constants.Color.foodBlack
         definesPresentationContext = true
 
         self.searchController.searchBar.delegate = self
@@ -84,12 +80,12 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
         let recipe = food2ForkImagesResult[indexPath.row]
         recipeToPass = recipe
         
-        performSegue(withIdentifier: segueIdentifier, sender: self)
+        performSegue(withIdentifier: Constants.StringLiterals.SegueIdentifier, sender: self)
     }
     
     // MARK: Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == segueIdentifier)
+        if(segue.identifier == Constants.StringLiterals.SegueIdentifier)
         {
             let viewController = segue.destination as! DetailViewController
             viewController.recipe = recipeToPass
