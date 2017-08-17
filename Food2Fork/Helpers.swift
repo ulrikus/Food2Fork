@@ -36,3 +36,15 @@ extension UIView {
         return UINib(nibName: String(describing: T.self), bundle: bundle).instantiate(withOwner: nil, options: nil)[0] as! T
     }
 }
+
+func performUIUpdatesOnMain(_ updates: @escaping () -> Void) {
+    DispatchQueue.main.async {
+        updates()
+    }
+}
+
+func performTaskInBackground(_ updates: @escaping () -> Void) {
+    DispatchQueue.global(qos: .background).async {
+        updates()
+    }
+}
