@@ -10,6 +10,6 @@ import UIKit
 
 class DetailViewController: UITableViewController {
     
-    
+    var recipe: Recipe?
     
 }
