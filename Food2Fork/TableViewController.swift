@@ -13,6 +13,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     var searchController: UISearchController!
     var resultsController = UITableViewController()
     var searchPhrase = String()
+    var recipes = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,10 +23,12 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
         
         self.searchController = UISearchController(searchResultsController: self.resultsController)
         self.navigationItem.titleView = self.searchController.searchBar
+
         navigationController?.navigationBar.barTintColor = UIColor.black
         
         self.tableView.registerNib(CustomRecipeCell.self)
         self.resultsController.tableView.register(CustomRecipeCell.self)
+        definesPresentationContext = true
 
         self.searchController.searchBar.delegate = self
     }
@@ -47,11 +50,8 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeue(CustomRecipeCell.self, for: indexPath)
-        let imageView = cell.recipeImage!
         
         cell.recipeTitleLabel.text = "Test \(indexPath.row+1)"
-        fadeBottom(of: imageView)
-        cell.backgroundView = imageView
         
         if indexPath.row % 2 == 0 {
             cell.recipeImage.image = #imageLiteral(resourceName: "testImageRecipe")
@@ -63,17 +63,6 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-    }
-    
-    func fadeBottom(of imageView: UIImageView) {
-        let gradient = CAGradientLayer()
-        let endColor = UIColor(white: 0, alpha: 0.8)
-        
-        gradient.frame = imageView.bounds
-        gradient.colors = [UIColor.clear.cgColor, endColor.cgColor]
-        gradient.locations = [0.7, 1]
-        
-        imageView.layer.insertSublayer(gradient, at: 0)
     }
 }
 
