@@ -18,6 +18,7 @@
 		452808041F446EFB004F0355 /* CustomRecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452808031F446EFB004F0355 /* CustomRecipeCell.swift */; };
 		452808061F4476E8004F0355 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452808051F4476E8004F0355 /* Helpers.swift */; };
 		4528080A1F4578C7004F0355 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452808091F4578C7004F0355 /* Constants.swift */; };
+		45A760891F45B4A200F0C46A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A760881F45B4A200F0C46A /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		452808031F446EFB004F0355 /* CustomRecipeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomRecipeCell.swift; sourceTree = "<group>"; };
 		452808051F4476E8004F0355 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		452808091F4578C7004F0355 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		45A760881F45B4A200F0C46A /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 			children = (
 				452807D31F4454DD004F0355 /* AppDelegate.swift */,
 				452807D51F4454DD004F0355 /* TableViewController.swift */,
+				45A760881F45B4A200F0C46A /* DetailViewController.swift */,
 				452808031F446EFB004F0355 /* CustomRecipeCell.swift */,
 				452808011F446EE9004F0355 /* CustomRecipeCell.xib */,
 				452807D71F4454DD004F0355 /* Main.storyboard */,
@@ -275,6 +278,7 @@
 				4528080A1F4578C7004F0355 /* Constants.swift in Sources */,
 				452807D61F4454DD004F0355 /* TableViewController.swift in Sources */,
 				452807D41F4454DD004F0355 /* AppDelegate.swift in Sources */,
+				45A760891F45B4A200F0C46A /* DetailViewController.swift in Sources */,
 				452808041F446EFB004F0355 /* CustomRecipeCell.swift in Sources */,
 				452808061F4476E8004F0355 /* Helpers.swift in Sources */,
 			);
@@ -523,6 +527,7 @@
 				452807FA1F4454DD004F0355 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		452807FB1F4454DD004F0355 /* Build configuration list for PBXNativeTarget "Food2ForkTests" */ = {
 			isa = XCConfigurationList;
@@ -531,6 +536,7 @@
 				452807FD1F4454DD004F0355 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		452807FE1F4454DD004F0355 /* Build configuration list for PBXNativeTarget "Food2ForkUITests" */ = {
 			isa = XCConfigurationList;
@@ -539,6 +545,7 @@
 				452808001F4454DD004F0355 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
