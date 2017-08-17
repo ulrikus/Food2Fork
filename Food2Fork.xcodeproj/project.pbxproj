@@ -19,6 +19,7 @@
 		452808061F4476E8004F0355 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452808051F4476E8004F0355 /* Helpers.swift */; };
 		4528080A1F4578C7004F0355 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452808091F4578C7004F0355 /* Constants.swift */; };
 		45A760891F45B4A200F0C46A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A760881F45B4A200F0C46A /* DetailViewController.swift */; };
+		45A7608B1F45C0A500F0C46A /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A7608A1F45C0A500F0C46A /* Recipe.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		452808051F4476E8004F0355 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		452808091F4578C7004F0355 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		45A760881F45B4A200F0C46A /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		45A7608A1F45C0A500F0C46A /* Recipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 				452807DF1F4454DD004F0355 /* Info.plist */,
 				452808051F4476E8004F0355 /* Helpers.swift */,
 				452808091F4578C7004F0355 /* Constants.swift */,
+				45A7608A1F45C0A500F0C46A /* Recipe.swift */,
 			);
 			path = Food2Fork;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 			files = (
 				4528080A1F4578C7004F0355 /* Constants.swift in Sources */,
 				452807D61F4454DD004F0355 /* TableViewController.swift in Sources */,
+				45A7608B1F45C0A500F0C46A /* Recipe.swift in Sources */,
 				452807D41F4454DD004F0355 /* AppDelegate.swift in Sources */,
 				45A760891F45B4A200F0C46A /* DetailViewController.swift in Sources */,
 				452808041F446EFB004F0355 /* CustomRecipeCell.swift in Sources */,

@@ -10,16 +10,14 @@ import UIKit
 
 class TableViewController: UITableViewController, UISearchBarDelegate {
 
+    let segueIdentifier = "detailViewSegue"
+    
     var searchController: UISearchController!
     var searchPhrase = String()
-    var food2ForkImagesResult = [RecipeImage]()    // For storing image titles and URLs
+    var food2ForkImagesResult = [Recipe]()    // For storing image titles and URLs
     let foodGreen = UIColor(red: 130/255, green: 212/255, blue: 90/255, alpha: 1)
     let foodBlack = UIColor(red: 49/255, green: 49/255, blue: 49/255, alpha: 1)
-    
-    struct RecipeImage {
-        let title: String
-        let urlString: String
-    }
+    var recipeToPass: Recipe?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,13 +37,12 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     // MARK: Search Bar
-    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let methodParameters: [String: AnyObject] = [
             Constants.Food2ForkParameterKeys.SearchQuery: searchController.searchBar.text as AnyObject,
             Constants.Food2ForkParameterKeys.APIKey: Constants.Food2ForkParameterValues.APIKey as AnyObject
         ]
-        displayImageFromFood2ForkBySearch(methodParameters)
+        getRecipeFromFood2ForkBySearch(methodParameters)
         
         print("Search phrase: \(self.searchController.searchBar.text!)")
     }
@@ -58,7 +55,6 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     // MARK: Table View
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return food2ForkImagesResult.count
     }
@@ -67,7 +63,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
         let cell = tableView.dequeue(CustomRecipeCell.self, for: indexPath)
         
         let recipeImage = food2ForkImagesResult[indexPath.row]
-        let imageURL = URL(string: recipeImage.urlString)
+        let imageURL = URL(string: recipeImage.imageUrlString)
         
         cell.recipeImage?.image = UIImage()
         cell.recipeTitleLabel?.text = recipeImage.title
@@ -83,10 +79,25 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         
+        let recipe = food2ForkImagesResult[indexPath.row]
+        recipeToPass = recipe
+        
+        performSegue(withIdentifier: segueIdentifier, sender: self)
     }
     
-    fileprivate func displayImageFromFood2ForkBySearch(_ methodParameters: [String: AnyObject]) {
+    // MARK: Segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == segueIdentifier)
+        {
+            let viewController = segue.destination as! DetailViewController
+            viewController.recipe = recipeToPass
+        }
+    }
+    
+    // MARK: Network request
+    fileprivate func getRecipeFromFood2ForkBySearch(_ methodParameters: [String: AnyObject]) {
         
         // Create session and request
         let session = URLSession.shared
@@ -135,26 +146,29 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
                 displayError("No recipes found. Search again.")
                 return
             } else {
-                var tempArray = [RecipeImage]()
+                var tempArray = [Recipe]()
                 for recipe in recipesArray {
                     // GUARD: Does our image have a key for 'image_url'?
                     guard let imageURLString = recipe[Constants.Food2ForkResponseKeys.ImageUrl] as? String else {
                         displayError("Cannot find key '\(Constants.Food2ForkResponseKeys.ImageUrl)'")
                         continue
                     }
+                    guard let recipeId = recipe[Constants.Food2ForkParameterKeys.RecipeId] as? String else {
+                        displayError("Cannot find key '\(Constants.Food2ForkParameterKeys.RecipeId)'")
+                        continue
+                    }
                     
                     if let recipeTitle = recipe[Constants.Food2ForkResponseKeys.Title] as? String, recipeTitle != "" {
-                        let image = RecipeImage(title: recipeTitle, urlString: imageURLString)
+                        let image = Recipe(recipeId: recipeId, title: recipeTitle, imageUrlString: imageURLString)
                         tempArray.append(image)
                     } else {
-                        let image = RecipeImage(title: "(Untitled)", urlString: imageURLString)
+                        let image = Recipe(recipeId: recipeId, title: "(Untitled)", imageUrlString: imageURLString)
                         tempArray.append(image)
                     }
                 }
                 performUIUpdatesOnMain {
                     self.food2ForkImagesResult = tempArray
                     self.tableView.reloadData()
-//                    self.resultsController.tableView.reloadData()
                     print("Number of images: \(self.food2ForkImagesResult.count)")
                 }
             }
