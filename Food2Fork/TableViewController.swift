@@ -22,11 +22,11 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
         self.navigationItem.titleView = self.searchController.searchBar
         self.searchController.hidesNavigationBarDuringPresentation = false
         
-        navigationController?.navigationBar.barTintColor = Constants.Color.foodBlack
-        navigationController?.navigationBar.tintColor = Constants.Color.foodGreen
+        navigationController?.navigationBar.barTintColor = .foodBlack
+        navigationController?.navigationBar.tintColor = .foodGreen
         
         self.tableView.registerNib(CustomRecipeCell.self)
-        self.tableView.backgroundColor = Constants.Color.foodBlack
+        self.tableView.backgroundColor = .foodBlack
         definesPresentationContext = true
 
         self.searchController.searchBar.delegate = self
