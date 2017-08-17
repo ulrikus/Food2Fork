@@ -22,7 +22,7 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CLK-Sh-5X3" userLabel="Recipe Image">
                         <rect key="frame" x="0.0" y="0.0" width="434" height="149.5"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="149.5" id="gxe-gJ-AXo"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="149" id="gxe-gJ-AXo"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recipe Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XPa-bP-Xbb">
