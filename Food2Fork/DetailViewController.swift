@@ -32,7 +32,7 @@ class DetailViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let recipeImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 200))
+        let recipeImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 300))
         let imageURL = URL(string: (recipe?.imageUrlString)!)
         self.tableView.tableHeaderView = recipeImageView
         recipeImageView.contentMode = .scaleAspectFit
@@ -46,20 +46,53 @@ class DetailViewController: UITableViewController {
         }
     }
     
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 4
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return Constants.StringLiterals.Ingredients
+        case 1:
+            return Constants.StringLiterals.PublisherName
+        case 2:
+            return Constants.StringLiterals.PublisherUrl
+        default:
+            return Constants.StringLiterals.F2FUrl
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return detailRecipe?.ingredients.count ?? 0
+        switch section {
+        case 0:
+            return detailRecipe?.ingredients.count ?? 0
+        default:
+            return 1
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row % 2 == 0 {
+            cell.backgroundColor = .foodDarkBlack
+        } else {
+            cell.backgroundColor = .foodBlack
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.StringLiterals.ReuseCellIdentifier)!
         
-        cell.textLabel?.text = detailRecipe?.ingredients[indexPath.row]
-        
-//        if indexPath.row == 1 {
-//            cell.textLabel?.text = "You need:"
-//        } else {
-//            cell.textLabel?.text = detailRecipe?.ingredients[indexPath.row]
-//        }
+        switch indexPath.section {
+        case 0:
+            cell.textLabel?.text = detailRecipe?.ingredients[indexPath.row]
+        case 1:
+            cell.textLabel?.text = detailRecipe?.publisherName
+        case 2:
+            cell.textLabel?.text = detailRecipe?.publisherUrl
+        default:
+            cell.textLabel?.text = detailRecipe?.food2ForkUrlString
+        }
         
         return cell
     }

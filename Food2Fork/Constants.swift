@@ -56,5 +56,10 @@ struct Constants {
     struct StringLiterals {
         static let SegueIdentifier = "detailViewSegue"
         static let ReuseCellIdentifier = "recipeDetailsCell"
+        static let Ingredients = "Ingredients"
+        static let PublisherName = "Name of the Publisher"
+        static let PublisherUrl = "Base URL of the publisher"
+        static let SocialRank = "Social Ranking"
+        static let F2FUrl = "URL of the recipe on Food2Fork.com"
     }
 }
