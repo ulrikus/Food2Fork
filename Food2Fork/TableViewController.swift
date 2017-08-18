@@ -24,6 +24,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
         
         navigationController?.navigationBar.barTintColor = .foodBlack
         navigationController?.navigationBar.tintColor = .foodGreen
+        self.tableView.separatorColor = .foodDarkBlack
         
         self.tableView.registerNib(CustomRecipeCell.self)
         self.tableView.backgroundColor = .foodBlack
