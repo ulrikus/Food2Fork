@@ -21,6 +21,7 @@
 		45A760891F45B4A200F0C46A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A760881F45B4A200F0C46A /* DetailViewController.swift */; };
 		45A7608B1F45C0A500F0C46A /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A7608A1F45C0A500F0C46A /* Recipe.swift */; };
 		45A7608D1F45C45600F0C46A /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A7608C1F45C45600F0C46A /* UIColor+Extensions.swift */; };
+		45A760931F47254000F0C46A /* EmptySearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45A760921F47254000F0C46A /* EmptySearchView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		45A760881F45B4A200F0C46A /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		45A7608A1F45C0A500F0C46A /* Recipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		45A7608C1F45C45600F0C46A /* UIColor+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+Extensions.swift"; path = "../UIColor+Extensions.swift"; sourceTree = "<group>"; };
+		45A760921F47254000F0C46A /* EmptySearchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptySearchView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 				452808031F446EFB004F0355 /* CustomRecipeCell.swift */,
 				452808011F446EE9004F0355 /* CustomRecipeCell.xib */,
 				452807D71F4454DD004F0355 /* Main.storyboard */,
+				45A760921F47254000F0C46A /* EmptySearchView.xib */,
 				452807DA1F4454DD004F0355 /* Assets.xcassets */,
 				452807DC1F4454DD004F0355 /* LaunchScreen.storyboard */,
 				452807DF1F4454DD004F0355 /* Info.plist */,
@@ -257,6 +260,7 @@
 				452807DE1F4454DD004F0355 /* LaunchScreen.storyboard in Resources */,
 				452807DB1F4454DD004F0355 /* Assets.xcassets in Resources */,
 				452807D91F4454DD004F0355 /* Main.storyboard in Resources */,
+				45A760931F47254000F0C46A /* EmptySearchView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
