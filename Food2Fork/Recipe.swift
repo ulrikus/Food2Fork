@@ -22,6 +22,6 @@ struct DetailRecipe {
     let food2ForkUrlString: String
     let publisherName: String
     let publisherUrl: String
-    let socialRank: String
+    let socialRank: Double
     let ingredients: [String]
 }
