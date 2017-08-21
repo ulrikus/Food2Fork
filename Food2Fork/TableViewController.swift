@@ -15,12 +15,20 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     var food2ForkImagesResult = [ListRecipe]()    // For storing image titles and URLs
     var recipeToPass: ListRecipe?
     
+    private var emptySearchView: EmptySearchView {
+        return self.view as! EmptySearchView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let emptySearchView = UIView.instanceFromNib() as EmptySearchView
+        self.tableView.backgroundView = emptySearchView
         
         self.searchController = UISearchController(searchResultsController: nil)
         self.navigationItem.titleView = self.searchController.searchBar
         self.searchController.hidesNavigationBarDuringPresentation = false
+        self.searchController.searchBar.keyboardAppearance = .alert
         
         navigationController?.navigationBar.barTintColor = .foodBlack
         navigationController?.navigationBar.tintColor = .foodGreen
@@ -34,12 +42,21 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     // MARK: Search Bar
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        let methodParameters: [String: AnyObject] = [
-            Constants.Food2ForkParameterKeys.SearchQuery: searchController.searchBar.text as AnyObject,
-            Constants.Food2ForkParameterKeys.APIKey: Constants.Food2ForkParameterValues.APIKey as AnyObject
-        ]
-        getRecipeFromFood2ForkBySearch(methodParameters)
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        
+        searchPhrase = searchBar.text!
+        if searchPhrase.isEmpty {
+            food2ForkImagesResult = []
+            tableView.backgroundView?.isHidden = false
+            tableView.reloadData()
+        } else {
+            let methodParameters: [String: AnyObject] = [
+                Constants.Food2ForkParameterKeys.SearchQuery: searchController.searchBar.text as AnyObject,
+                Constants.Food2ForkParameterKeys.APIKey: Constants.Food2ForkParameterValues.APIKey as AnyObject
+            ]
+            perform(#selector(getRecipeFromFood2ForkBySearch), with: methodParameters, afterDelay: 1.0)
+        }
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -92,11 +109,12 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     // MARK: Network request
-    fileprivate func getRecipeFromFood2ForkBySearch(_ methodParameters: [String: AnyObject]) {
+    @objc fileprivate func getRecipeFromFood2ForkBySearch(_ methodParameters: [String: AnyObject]) {
         
         // Create session and request
         let session = URLSession.shared
         let request = URLRequest(url: food2ForkSearchURLFromParameters(methodParameters))
+        print(methodParameters)
         
         // Create network request
         let task = session.dataTask(with: request) { (data, response, error) in
@@ -138,6 +156,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
             }
             
             if recipesArray.count == 0 {
+                self.tableView.backgroundView?.isHidden = false
                 displayError("No recipes found. Search again.")
                 return
             } else {
@@ -163,6 +182,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
                 }
                 performUIUpdatesOnMain {
                     self.food2ForkImagesResult = tempArray
+                    self.tableView.backgroundView?.isHidden = true
                     self.tableView.reloadData()
                 }
             }
