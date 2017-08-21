@@ -29,6 +29,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
         self.navigationItem.titleView = self.searchController.searchBar
         self.searchController.hidesNavigationBarDuringPresentation = false
         self.searchController.searchBar.keyboardAppearance = .alert
+        tableView.separatorStyle = .none
         
         navigationController?.navigationBar.barTintColor = .foodBlack
         navigationController?.navigationBar.tintColor = .foodGreen
