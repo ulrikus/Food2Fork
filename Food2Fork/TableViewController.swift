@@ -114,7 +114,6 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
         // Create session and request
         let session = URLSession.shared
         let request = URLRequest(url: food2ForkSearchURLFromParameters(methodParameters))
-        print(methodParameters)
         
         // Create network request
         let task = session.dataTask(with: request) { (data, response, error) in
@@ -191,7 +190,6 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
         // Start the task
         task.resume()
     }
-
     
     // MARK: Helper for Creating a URL from Parameters
     private func food2ForkSearchURLFromParameters(_ parameters: [String: AnyObject]) -> URL {
