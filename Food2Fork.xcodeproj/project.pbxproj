@@ -220,6 +220,7 @@
 				TargetAttributes = {
 					452807CF1F4454DD004F0355 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = B56SMCV7PR;
 						ProvisioningStyle = Automatic;
 					};
 					452807E31F4454DD004F0355 = {
@@ -450,6 +451,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = B56SMCV7PR;
 				INFOPLIST_FILE = Food2Fork/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = FINN.Ulrik.Food2Fork;
@@ -462,6 +464,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = B56SMCV7PR;
 				INFOPLIST_FILE = Food2Fork/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = FINN.Ulrik.Food2Fork;
