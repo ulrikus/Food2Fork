@@ -19,6 +19,11 @@ struct Constants {
         static let APIPathGet = "/api/get"
     }
     
+    struct Food2ForkMethods {
+        static let Get = "GET"
+        static let Search = "SEARCH"
+    }
+    
     // MARK: Food2Fork Parameter Keys
     struct Food2ForkParameterKeys {
         static let APIKey = "key"
