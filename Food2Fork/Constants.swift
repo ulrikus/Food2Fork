@@ -19,6 +19,7 @@ struct Constants {
         static let APIPathGet = "/api/get"
     }
     
+    // MARK: Network Methods
     struct Food2ForkMethods {
         static let Get = "GET"
         static let Search = "SEARCH"
