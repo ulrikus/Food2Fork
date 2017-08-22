@@ -23,6 +23,7 @@
 		45A7608D1F45C45600F0C46A /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A7608C1F45C45600F0C46A /* UIColor+Extensions.swift */; };
 		45A760931F47254000F0C46A /* EmptySearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45A760921F47254000F0C46A /* EmptySearchView.xib */; };
 		45A760951F4ABD3700F0C46A /* EmptySearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A760941F4ABD3700F0C46A /* EmptySearchView.swift */; };
+		45A760971F4B236300F0C46A /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A760961F4B236300F0C46A /* NetworkClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		45A7608C1F45C45600F0C46A /* UIColor+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+Extensions.swift"; path = "../UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		45A760921F47254000F0C46A /* EmptySearchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptySearchView.xib; sourceTree = "<group>"; };
 		45A760941F4ABD3700F0C46A /* EmptySearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptySearchView.swift; sourceTree = "<group>"; };
+		45A760961F4B236300F0C46A /* NetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +132,7 @@
 				452808091F4578C7004F0355 /* Constants.swift */,
 				45A7608A1F45C0A500F0C46A /* Recipe.swift */,
 				45A7608C1F45C45600F0C46A /* UIColor+Extensions.swift */,
+				45A760961F4B236300F0C46A /* NetworkClient.swift */,
 			);
 			path = Food2Fork;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45A760951F4ABD3700F0C46A /* EmptySearchView.swift in Sources */,
+				45A760971F4B236300F0C46A /* NetworkClient.swift in Sources */,
 				4528080A1F4578C7004F0355 /* Constants.swift in Sources */,
 				452807D61F4454DD004F0355 /* TableViewController.swift in Sources */,
 				45A7608B1F45C0A500F0C46A /* Recipe.swift in Sources */,

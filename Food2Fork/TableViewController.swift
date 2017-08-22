@@ -52,11 +52,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
             tableView.backgroundView?.isHidden = false
             tableView.reloadData()
         } else {
-            let methodParameters: [String: AnyObject] = [
-                Constants.Food2ForkParameterKeys.SearchQuery: searchController.searchBar.text as AnyObject,
-                Constants.Food2ForkParameterKeys.APIKey: Constants.Food2ForkParameterValues.APIKey as AnyObject
-            ]
-            perform(#selector(getRecipeFromFood2ForkBySearch), with: methodParameters, afterDelay: 1.0)
+            perform(#selector(getRecipeFromFood2ForkBySearch), with: nil, afterDelay: 1.0)
         }
     }
     
@@ -110,101 +106,32 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     // MARK: Network request
-    @objc fileprivate func getRecipeFromFood2ForkBySearch(_ methodParameters: [String: AnyObject]) {
+    @objc fileprivate func getRecipeFromFood2ForkBySearch() {
+        let parameters = [Constants.Food2ForkParameterKeys.SearchQuery: searchController.searchBar.text as AnyObject]
+        let method = Constants.Food2ForkMethods.Search
         
-        // Create session and request
-        let session = URLSession.shared
-        let request = URLRequest(url: food2ForkSearchURLFromParameters(methodParameters))
+        let netwotkClient = NetworkClient()
         
-        // Create network request
-        let task = session.dataTask(with: request) { (data, response, error) in
-            
-            func displayError(_ error: String) {
-                print(error)
-            }
-            
-            // GUARD: Was there an error?
-            guard (error == nil) else {
-                displayError("There was an error with your request: \(String(describing: error))")
+        netwotkClient.taskForSEARCHMethod(method: method, parameters: parameters) { (result, error) in
+            guard let result = result else {
+                print("\(String(describing: error))")
                 return
             }
             
-            // GUARD: Did we get a successful 2XX response?
-            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                displayError("Your request returned a status code other than 2XX.")
-                return
-            }
+            let listRecipes = ListRecipe.createListReicpes(recipeDictionary: result)
             
-            // GUARD: Was there any data returned?
-            guard let data = data else {
-                displayError("No data was returned by the request.")
-                return
-            }
-            
-            let parsedResult: [String: AnyObject]
-            do {
-                parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String: AnyObject]
-            } catch {
-                displayError("Could not parse the data as JSON.")
-                return
-            }
-            
-            // GUARD: Is the "recipes" key in out result?
-            guard let recipesArray = parsedResult[Constants.Food2ForkResponseKeys.Recipes] as? [[String: AnyObject]] else {
-                displayError("Cannot find keys '\(Constants.Food2ForkResponseKeys.Recipes)' in \(parsedResult).")
-                return
-            }
-            
-            if recipesArray.count == 0 {
-                self.tableView.backgroundView?.isHidden = false
-                displayError("No recipes found. Search again.")
-                return
-            } else {
-                var tempArray = [ListRecipe]()
-                for recipe in recipesArray {
-                    // GUARD: Does our image have a key for 'image_url'?
-                    guard let imageURLString = recipe[Constants.Food2ForkResponseKeys.ImageUrl] as? String else {
-                        displayError("Cannot find key '\(Constants.Food2ForkResponseKeys.ImageUrl)'")
-                        continue
-                    }
-                    guard let recipeId = recipe[Constants.Food2ForkResponseKeys.RecipeId] as? String else {
-                        displayError("Cannot find key '\(Constants.Food2ForkParameterKeys.RecipeId)'")
-                        continue
-                    }
-                    
-                    if let recipeTitle = recipe[Constants.Food2ForkResponseKeys.Title] as? String, recipeTitle != "" {
-                        let image = ListRecipe(recipeId: recipeId, title: recipeTitle, imageUrlString: imageURLString)
-                        tempArray.append(image)
-                    } else {
-                        let image = ListRecipe(recipeId: recipeId, title: "(Untitled)", imageUrlString: imageURLString)
-                        tempArray.append(image)
-                    }
-                }
-                performUIUpdatesOnMain {
-                    self.food2ForkImagesResult = tempArray
+            performUIUpdatesOnMain {
+                if listRecipes.count == 0 {
+                    self.tableView.backgroundView?.isHidden = false
+                    print("No recipes found. Search again.")
+                    return
+                } else {
+                    self.food2ForkImagesResult = listRecipes
                     self.tableView.backgroundView?.isHidden = true
                     self.tableView.reloadData()
                 }
             }
         }
-        
-        // Start the task
-        task.resume()
-    }
-    
-    // MARK: Helper for Creating a URL from Parameters
-    private func food2ForkSearchURLFromParameters(_ parameters: [String: AnyObject]) -> URL {
-        var components = URLComponents()
-        components.scheme = Constants.Food2Fork.APIScheme
-        components.host = Constants.Food2Fork.APIHost
-        components.path = Constants.Food2Fork.APIPathSearch
-        components.queryItems = [URLQueryItem]()
-        
-        for (key, value) in parameters {
-            let queryItem = URLQueryItem(name: key, value: "\(value)")
-            components.queryItems!.append(queryItem)
-        }
-        return components.url!
     }
 }
 

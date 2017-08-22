@@ -22,11 +22,7 @@ class DetailViewController: UITableViewController {
         self.tableView.backgroundColor = .foodBlack
         self.tableView.tableHeaderView = UIImageView()
         
-        let methodParameters: [String: AnyObject] = [
-            Constants.Food2ForkParameterKeys.RecipeId: recipe?.recipeId as AnyObject,
-            Constants.Food2ForkParameterKeys.APIKey: Constants.Food2ForkParameterValues.APIKey as AnyObject
-        ]
-        getRecipeFromFood2Fork(methodParameters)
+        getRecipeFromFood2Fork()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -96,114 +92,27 @@ class DetailViewController: UITableViewController {
         
         return cell
     }
+    
     // MARK: Network request
-    fileprivate func getRecipeFromFood2Fork(_ methodParameters: [String: AnyObject]) {
+    fileprivate func getRecipeFromFood2Fork() {
+        let parameters = [Constants.Food2ForkParameterKeys.RecipeId: recipe?.recipeId as AnyObject]
+        let method = Constants.Food2ForkMethods.Get
         
-        // Create session and request
-        let session = URLSession.shared
-        let request = URLRequest(url: food2ForkSearchURLFromParameters(methodParameters))
+        let netwotkClient = NetworkClient()
         
-        // Create network request
-        let task = session.dataTask(with: request) { (data, response, error) in
-            
-            func displayError(_ error: String) {
-                print(error)
-            }
-            
-            // GUARD: Was there an error?
-            guard (error == nil) else {
-                displayError("There was an error with your request: \(String(describing: error))")
+        netwotkClient.taskForGETMethod(method: method, parameters: parameters) { (result, error) in
+            guard let result = result else {
+                print("\(String(describing: error))")
                 return
             }
             
-            // GUARD: Did we get a successful 2XX response?
-            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                displayError("Your request returned a status code other than 2XX.")
-                return
-            }
-            
-            // GUARD: Was there any data returned?
-            guard let data = data else {
-                displayError("No data was returned by the request.")
-                return
-            }
-            
-            let parsedResult: [String: AnyObject]
-            do {
-                parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String: AnyObject]
-            } catch {
-                displayError("Could not parse the data as JSON.")
-                return
-            }
-            
-            // GUARD: Is the "recipe" key in out result?
-            guard let recipe = parsedResult[Constants.Food2ForkResponseKeys.Recipe] as? [String: AnyObject] else {
-                displayError("Cannot find keys '\(Constants.Food2ForkResponseKeys.Recipe)' in \(parsedResult).")
-                return
-            }
-            
-            guard let imageURLString = recipe[Constants.Food2ForkResponseKeys.ImageUrl] as? String else {
-                displayError("Cannot find key '\(Constants.Food2ForkResponseKeys.ImageUrl)'")
-                return
-            }
-            guard let recipeId = recipe[Constants.Food2ForkResponseKeys.RecipeId] as? String else {
-                displayError("Cannot find key '\(Constants.Food2ForkResponseKeys.RecipeId)'")
-                return
-            }
-            guard let sourceUrlString = recipe[Constants.Food2ForkResponseKeys.SourceUrl] as? String else {
-                displayError("Cannot find key '\(Constants.Food2ForkResponseKeys.SourceUrl)'")
-                return
-            }
-            guard let f2fUrlString = recipe[Constants.Food2ForkResponseKeys.F2FUrl] as? String else {
-                displayError("Cannot find key '\(Constants.Food2ForkResponseKeys.F2FUrl)'")
-                return
-            }
-            guard let publisherName = recipe[Constants.Food2ForkResponseKeys.PublisherName] as? String else {
-                displayError("Cannot find key '\(Constants.Food2ForkResponseKeys.PublisherName)'")
-                return
-            }
-            guard let publisherUrl = recipe[Constants.Food2ForkResponseKeys.PublisherUrl] as? String else {
-                displayError("Cannot find key '\(Constants.Food2ForkResponseKeys.PublisherUrl)'")
-                return
-            }
-            guard let socialRank = recipe[Constants.Food2ForkResponseKeys.SocialRank] as? Double else {
-                displayError("Cannot find key '\(Constants.Food2ForkResponseKeys.SocialRank)'")
-                return
-            }
-            guard let ingredients = recipe[Constants.Food2ForkResponseKeys.Ingredients] as? [String] else {
-                displayError("Cannot find key '\(Constants.Food2ForkResponseKeys.Ingredients)'")
-                return
-            }
-            guard let title = recipe[Constants.Food2ForkResponseKeys.Title] as? String, title != "" else {
-                displayError("Cannot find key '\(Constants.Food2ForkResponseKeys.Ingredients)'")
-                return
-            }
-            
-            let tempRecipe = DetailRecipe(recipeId: recipeId, title: title, imageUrlString: imageURLString, sourceUrlString: sourceUrlString, food2ForkUrlString: f2fUrlString, publisherName: publisherName, publisherUrl: publisherUrl, socialRank: socialRank, ingredients: ingredients)
+            let detailRecipe = DetailRecipe.createDetailRecipe(recipeDictionary: result)
             
             performUIUpdatesOnMain {
-                self.detailRecipe = tempRecipe
+                self.detailRecipe = detailRecipe
                 self.tableView.reloadData()
             }
         }
-    
-        // Start the task
-        task.resume()
-    }
-
-    // MARK: Helper for Creating a URL from Parameters
-    private func food2ForkSearchURLFromParameters(_ parameters: [String: AnyObject]) -> URL {
-        var components = URLComponents()
-        components.scheme = Constants.Food2Fork.APIScheme
-        components.host = Constants.Food2Fork.APIHost
-        components.path = Constants.Food2Fork.APIPathGet
-        components.queryItems = [URLQueryItem]()
-        
-        for (key, value) in parameters {
-            let queryItem = URLQueryItem(name: key, value: "\(value)")
-            components.queryItems!.append(queryItem)
-        }
-        return components.url!
     }
 }
 
