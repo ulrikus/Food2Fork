@@ -13,7 +13,7 @@
         <scene sceneID="YsU-BX-r2n">
             <objects>
                 <collectionViewController id="bad-DV-4ww" customClass="CollectionViewController" customModule="Food2Fork" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="jqq-sy-nSB">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="jqq-sy-nSB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -84,7 +84,6 @@
         <!--Table View-->
         <scene sceneID="Rav-Aw-HLT">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zQf-kd-arA" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fbI-em-4SR" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Table View" image="tableView" id="cFb-8Q-C9u"/>
                     <toolbarItems/>
@@ -97,6 +96,7 @@
                         <segue destination="OYX-dh-8Ib" kind="relationship" relationship="rootViewController" id="ZWY-JW-VTB"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zQf-kd-arA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1144.8" y="110.19490254872565"/>
         </scene>
@@ -106,6 +106,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="odj-gq-HLa" customClass="TabBarController" customModule="Food2Fork" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Q3K-Yp-pg8">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.19215686269999999" green="0.19215686269999999" blue="0.19215686269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="0.50980392159999999" green="0.83529411760000005" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -140,7 +141,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="collectionView" width="24" height="23"/>
+        <image name="collectionView" width="25" height="25"/>
         <image name="tableView" width="24" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
