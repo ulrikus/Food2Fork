@@ -11,7 +11,6 @@ import UIKit
 class CollectionViewController: UICollectionViewController, UISearchBarDelegate {
     
     var searchController: UISearchController!
-    var searchPhrase = String()
     var food2ForkImagesResult = [ListRecipe]()    // For storing image titles and URLs
     var recipeToPass: ListRecipe?
     
@@ -40,14 +39,19 @@ class CollectionViewController: UICollectionViewController, UISearchBarDelegate 
         definesPresentationContext = true
         
         self.searchController.searchBar.delegate = self
+        
+        
     }
     
     // MARK: Search Bar
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         
-        searchPhrase = searchBar.text!
-        if searchPhrase.isEmpty {
+        guard let searchBarText = searchController.searchBar.text else {
+            return
+        }
+        
+        if searchBarText.isEmpty {
             food2ForkImagesResult = []
             collectionView?.backgroundView?.isHidden = false
             collectionView?.reloadData()
@@ -57,10 +61,10 @@ class CollectionViewController: UICollectionViewController, UISearchBarDelegate 
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.text = searchPhrase   // Keep text from former search
+        searchBar.text = RecipesProvider.sharedProvider.lastSearchString   // Keep text from former search
     }
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchPhrase = searchBar.text!  // Store searchPhrase
+        RecipesProvider.sharedProvider.lastSearchString = searchBar.text!  // Store searchPhrase
     }
     
     // MARK: Collection View
@@ -108,29 +112,19 @@ class CollectionViewController: UICollectionViewController, UISearchBarDelegate 
     
     // MARK: Network request
     @objc fileprivate func getRecipeFromFood2ForkBySearch() {
-        let parameters = [Constants.Food2ForkParameterKeys.SearchQuery: searchController.searchBar.text as AnyObject]
-        let method = Constants.Food2ForkMethods.Search
+        guard let searchBarText = searchController.searchBar.text else {
+            return
+        }
         
-        let netwotkClient = NetworkClient()
-        
-        netwotkClient.taskForSEARCHMethod(method: method, parameters: parameters) { (result, error) in
-            guard let result = result else {
-                print("\(String(describing: error))")
+        RecipesProvider.sharedProvider.getRecipeFromFood2ForkBySearch(searchPhrase: searchBarText) { listRecipes in
+            if listRecipes.count == 0 {
+                self.collectionView?.backgroundView?.isHidden = false
+                print("No recipes found. Search again.")
                 return
-            }
-            
-            let listRecipes = ListRecipe.createListReicpes(recipeDictionary: result)
-            
-            performUIUpdatesOnMain {
-                if listRecipes.count == 0 {
-                    self.collectionView?.backgroundView?.isHidden = false
-                    print("No recipes found. Search again.")
-                    return
-                } else {
-                    self.food2ForkImagesResult = listRecipes
-                    self.collectionView?.backgroundView?.isHidden = true
-                    self.collectionView?.reloadData()
-                }
+            } else {
+                self.food2ForkImagesResult = listRecipes
+                self.collectionView?.backgroundView?.isHidden = true
+                self.collectionView?.reloadData()
             }
         }
     }

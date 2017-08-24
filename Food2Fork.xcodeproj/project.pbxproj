@@ -11,6 +11,7 @@
 		4517B9591F4DB21B00F35710 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4517B9581F4DB21B00F35710 /* CollectionViewController.swift */; };
 		4517B95B1F4DBBEF00F35710 /* CustomCollectionViewRecipeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4517B95A1F4DBBEF00F35710 /* CustomCollectionViewRecipeCell.xib */; };
 		4517B95D1F4DBC1E00F35710 /* CustomCollectionViewRecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4517B95C1F4DBC1E00F35710 /* CustomCollectionViewRecipeCell.swift */; };
+		4517B95F1F4EDAF000F35710 /* RecipesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4517B95E1F4EDAF000F35710 /* RecipesProvider.swift */; };
 		452807D41F4454DD004F0355 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452807D31F4454DD004F0355 /* AppDelegate.swift */; };
 		452807D61F4454DD004F0355 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452807D51F4454DD004F0355 /* TableViewController.swift */; };
 		452807D91F4454DD004F0355 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 452807D71F4454DD004F0355 /* Main.storyboard */; };
@@ -53,6 +54,7 @@
 		4517B9581F4DB21B00F35710 /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		4517B95A1F4DBBEF00F35710 /* CustomCollectionViewRecipeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCollectionViewRecipeCell.xib; sourceTree = "<group>"; };
 		4517B95C1F4DBC1E00F35710 /* CustomCollectionViewRecipeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewRecipeCell.swift; sourceTree = "<group>"; };
+		4517B95E1F4EDAF000F35710 /* RecipesProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipesProvider.swift; sourceTree = "<group>"; };
 		452807D01F4454DD004F0355 /* Food2Fork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Food2Fork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		452807D31F4454DD004F0355 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		452807D51F4454DD004F0355 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				45A7608A1F45C0A500F0C46A /* Recipe.swift */,
 				45A7608C1F45C45600F0C46A /* UIColor+Extensions.swift */,
 				45A760961F4B236300F0C46A /* NetworkClient.swift */,
+				4517B95E1F4EDAF000F35710 /* RecipesProvider.swift */,
 			);
 			path = Food2Fork;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 				4528080A1F4578C7004F0355 /* Constants.swift in Sources */,
 				452807D61F4454DD004F0355 /* TableViewController.swift in Sources */,
 				45A7608B1F45C0A500F0C46A /* Recipe.swift in Sources */,
+				4517B95F1F4EDAF000F35710 /* RecipesProvider.swift in Sources */,
 				45A7608D1F45C45600F0C46A /* UIColor+Extensions.swift in Sources */,
 				452807D41F4454DD004F0355 /* AppDelegate.swift in Sources */,
 				45A760891F45B4A200F0C46A /* DetailViewController.swift in Sources */,
