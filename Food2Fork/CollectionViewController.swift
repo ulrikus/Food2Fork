@@ -134,7 +134,6 @@ class CollectionViewController: UICollectionViewController, UISearchBarDelegate 
             }
         }
     }
-
 }
 
 extension CollectionViewController: UICollectionViewDelegateFlowLayout {

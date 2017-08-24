@@ -22,6 +22,8 @@ class DetailViewController: UITableViewController {
         self.tableView.backgroundColor = .foodBlack
         self.tableView.tableHeaderView = UIImageView()
         
+        self.tableView.register(UITableViewCell.self)
+        
         getRecipeFromFood2Fork()
     }
     
@@ -89,6 +91,8 @@ class DetailViewController: UITableViewController {
         default:
             cell.textLabel?.text = detailRecipe?.food2ForkUrlString
         }
+        
+        cell.textLabel?.textColor = .foodWhite
         
         return cell
     }
