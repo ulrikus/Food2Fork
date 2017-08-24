@@ -128,11 +128,32 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
         RecipesProvider.sharedProvider.getRecipeFromFood2ForkBySearch(searchPhrase: searchBarText) {
             if RecipesProvider.sharedProvider.listRecipes.count == 0 {
                 print("No recipes found. Search again.")
+                self.presentNoSearchResultAlert()
                 return
             } else {
                 self.tableView?.reloadData()
             }
         }
+    }
+    
+    func presentNoSearchResultAlert() {
+        // Create the alert controller
+        let alertController = UIAlertController(title: "No search result for:", message: "\(RecipesProvider.sharedProvider.lastSearchString ?? "")", preferredStyle: .alert)
+        
+        alertController.view.tintColor = .foodGreen
+        alertController.view.backgroundColor = .foodBlack
+        alertController.view.layer.cornerRadius = 25
+        
+        // Create the actions
+        let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel) { alert in
+            
+        }
+        
+        // Add the actions
+        alertController.addAction(okAction)
+        
+        // Present the controller
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 
