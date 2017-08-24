@@ -11,7 +11,6 @@ import UIKit
 class CollectionViewController: UICollectionViewController, UISearchBarDelegate {
     
     var searchController: UISearchController!
-    var food2ForkImagesResult = [ListRecipe]()    // For storing image titles and URLs
     var recipeToPass: ListRecipe?
     
     private var emptySearchView: EmptySearchView {
@@ -39,8 +38,13 @@ class CollectionViewController: UICollectionViewController, UISearchBarDelegate 
         definesPresentationContext = true
         
         self.searchController.searchBar.delegate = self
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        
+        collectionView?.reloadData()
     }
     
     // MARK: Search Bar
@@ -52,7 +56,7 @@ class CollectionViewController: UICollectionViewController, UISearchBarDelegate 
         }
         
         if searchBarText.isEmpty {
-            food2ForkImagesResult = []
+            RecipesProvider.sharedProvider.listRecipes = []
             collectionView?.backgroundView?.isHidden = false
             collectionView?.reloadData()
         } else {
@@ -69,13 +73,19 @@ class CollectionViewController: UICollectionViewController, UISearchBarDelegate 
     
     // MARK: Collection View
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return food2ForkImagesResult.count
+        if RecipesProvider.sharedProvider.listRecipes.count == 0 {
+            self.collectionView?.backgroundView?.isHidden = false
+        } else {
+            self.collectionView?.backgroundView?.isHidden = true
+        }
+        
+        return RecipesProvider.sharedProvider.listRecipes.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeue(CustomCollectionViewRecipeCell.self, for: indexPath)
         
-        let recipeImage = food2ForkImagesResult[indexPath.row]
+        let recipeImage = RecipesProvider.sharedProvider.listRecipes[indexPath.row]
         let imageURL = URL(string: recipeImage.imageUrlString)
         
         cell.recipeImage?.image = UIImage()
@@ -95,7 +105,7 @@ class CollectionViewController: UICollectionViewController, UISearchBarDelegate 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        let recipe = food2ForkImagesResult[indexPath.row]
+        let recipe = RecipesProvider.sharedProvider.listRecipes[indexPath.row]
         recipeToPass = recipe
         
         performSegue(withIdentifier: Constants.StringLiterals.SegueIdentifier, sender: self)
@@ -116,14 +126,11 @@ class CollectionViewController: UICollectionViewController, UISearchBarDelegate 
             return
         }
         
-        RecipesProvider.sharedProvider.getRecipeFromFood2ForkBySearch(searchPhrase: searchBarText) { listRecipes in
-            if listRecipes.count == 0 {
-                self.collectionView?.backgroundView?.isHidden = false
+        RecipesProvider.sharedProvider.getRecipeFromFood2ForkBySearch(searchPhrase: searchBarText) {
+            if RecipesProvider.sharedProvider.listRecipes.count == 0 {
                 print("No recipes found. Search again.")
                 return
             } else {
-                self.food2ForkImagesResult = listRecipes
-                self.collectionView?.backgroundView?.isHidden = true
                 self.collectionView?.reloadData()
             }
         }

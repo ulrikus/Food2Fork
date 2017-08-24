@@ -11,8 +11,6 @@ import UIKit
 class TableViewController: UITableViewController, UISearchBarDelegate {
     
     var searchController: UISearchController!
-    var searchPhrase = String()
-    var food2ForkImagesResult = [ListRecipe]()    // For storing image titles and URLs
     var recipeToPass: ListRecipe?
     
     private var emptySearchView: EmptySearchView {
@@ -43,6 +41,12 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
         self.searchController.searchBar.delegate = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tableView.reloadData()
+    }
+    
     // MARK: Search Bar
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
@@ -52,7 +56,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
         }
         
         if searchBarText.isEmpty {
-            food2ForkImagesResult = []
+            RecipesProvider.sharedProvider.listRecipes = []
             tableView?.backgroundView?.isHidden = false
             tableView?.reloadData()
         } else {
@@ -69,13 +73,19 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     
     // MARK: Table View
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return food2ForkImagesResult.count
+        if RecipesProvider.sharedProvider.listRecipes.count == 0 {
+            self.tableView?.backgroundView?.isHidden = false
+        } else {
+            self.tableView?.backgroundView?.isHidden = true
+        }
+        
+        return RecipesProvider.sharedProvider.listRecipes.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeue(CustomRecipeCell.self, for: indexPath)
         
-        let recipeImage = food2ForkImagesResult[indexPath.row]
+        let recipeImage = RecipesProvider.sharedProvider.listRecipes[indexPath.row]
         let imageURL = URL(string: recipeImage.imageUrlString)
         
         cell.recipeImage?.image = UIImage()
@@ -94,7 +104,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let recipe = food2ForkImagesResult[indexPath.row]
+        let recipe = RecipesProvider.sharedProvider.listRecipes[indexPath.row]
         recipeToPass = recipe
         
         performSegue(withIdentifier: Constants.StringLiterals.SegueIdentifier, sender: self)
@@ -115,14 +125,11 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
             return
         }
         
-        RecipesProvider.sharedProvider.getRecipeFromFood2ForkBySearch(searchPhrase: searchBarText) { listRecipes in
-            if listRecipes.count == 0 {
-                self.tableView?.backgroundView?.isHidden = false
+        RecipesProvider.sharedProvider.getRecipeFromFood2ForkBySearch(searchPhrase: searchBarText) {
+            if RecipesProvider.sharedProvider.listRecipes.count == 0 {
                 print("No recipes found. Search again.")
                 return
             } else {
-                self.food2ForkImagesResult = listRecipes
-                self.tableView?.backgroundView?.isHidden = true
                 self.tableView?.reloadData()
             }
         }
