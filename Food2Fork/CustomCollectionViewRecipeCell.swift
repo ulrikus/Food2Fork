@@ -18,6 +18,8 @@ class CustomCollectionViewRecipeCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        recipeTitleLabel.textColor = .foodWhite
+        
         fadeBottom(of: recipeImage)
         
         self.addObserver(self, forKeyPath: "recipeImage.bounds", options: .new, context: nil)
