@@ -140,15 +140,16 @@ class CollectionViewController: UICollectionViewController, UISearchBarDelegate 
 extension CollectionViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let numberOfItemsPerRow = CGFloat(3.0)
+        let numberOfItemsPerRow = CGFloat(3)
         let screenSize = UIScreen.main.bounds
-        let itemSize = CGSize(width: (screenSize.width/numberOfItemsPerRow - numberOfItemsPerRow*3), height: 150)
+        let itemSize = CGSize(width: (screenSize.width/numberOfItemsPerRow - numberOfItemsPerRow*2), height: 150)
         
         return itemSize
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        let margin = CGFloat(4)
+        return UIEdgeInsets(top: 0, left: margin, bottom: 0, right: margin)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
