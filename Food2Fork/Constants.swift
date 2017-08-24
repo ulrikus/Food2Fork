@@ -61,8 +61,6 @@ struct Constants {
     // MARK: String Literals
     struct StringLiterals {
         static let SegueIdentifier = "detailViewSegue"
-        static let ReuseCellIdentifier = "recipeDetailsCell"
-        static let ReuseCollectionCellIdentifier = "CustomCollectionViewCell"
         static let Ingredients = "Ingredients"
         static let PublisherName = "Name of the Publisher"
         static let PublisherUrl = "Base URL of the publisher"

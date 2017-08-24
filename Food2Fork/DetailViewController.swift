@@ -77,7 +77,7 @@ class DetailViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.StringLiterals.ReuseCellIdentifier)!
+        let cell = tableView.dequeue(UITableViewCell.self, for: indexPath)
         
         switch indexPath.section {
         case 0:
