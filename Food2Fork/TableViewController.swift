@@ -100,7 +100,10 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == Constants.StringLiterals.SegueIdentifier)
         {
-            let viewController = segue.destination as! DetailViewController
+            guard let viewController = segue.destination.childViewControllers.first as? DetailViewController else {
+                print("Cannot cast 'UINavigationController' to 'Food2Fork.DetailViewController'.")
+                return
+            }
             viewController.recipe = recipeToPass
         }
     }

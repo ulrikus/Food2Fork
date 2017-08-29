@@ -29,12 +29,19 @@ class DetailViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         let recipeImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 300))
-        let imageURL = URL(string: (recipe?.imageUrlString)!)
+        
+        guard let recipe = recipe else {
+            return
+        }
+        
+        guard let imageURL = URL(string: (recipe.imageUrlString)) else {
+            return
+        }
         self.tableView.tableHeaderView = recipeImageView
         recipeImageView.contentMode = .scaleAspectFit
         
         performTaskInBackground() {
-            if let imageData = try? Data(contentsOf: imageURL!) {
+            if let imageData = try? Data(contentsOf: imageURL) {
                 performUIUpdatesOnMain {
                     recipeImageView.image = UIImage(data: imageData)
                 }
