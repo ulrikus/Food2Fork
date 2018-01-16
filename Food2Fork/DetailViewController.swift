@@ -17,7 +17,7 @@ class DetailViewController: UITableViewController {
         super.viewDidLoad()
         
         self.navigationItem.title = recipe?.title
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.foodWhite]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.foodWhite]
         
         self.tableView.backgroundColor = .foodBlack
         self.tableView.tableHeaderView = UIImageView()
