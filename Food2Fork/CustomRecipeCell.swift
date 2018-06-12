@@ -18,7 +18,8 @@ class CustomRecipeCell: UICollectionViewCell {
             
         fadeBottom(of: recipeImage)
         
-        layer.cornerRadius = 8
+        layer.cornerRadius = 20
+        recipeImage.backgroundColor = .foodDarkGray
         
         addObserver(self, forKeyPath: "recipeImage.bounds", options: .new, context: nil)
     }
@@ -41,7 +42,7 @@ class CustomRecipeCell: UICollectionViewCell {
         
         gradient.frame = imageView.bounds
         gradient.colors = [UIColor.clear.cgColor, endColor.cgColor]
-        gradient.locations = [0.7, 1]
+        gradient.locations = [0.75, 1]
         
         imageView.layer.insertSublayer(gradient, at: 0)
         gradientLayer = gradient
