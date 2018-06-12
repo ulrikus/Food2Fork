@@ -7,13 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4517B9571F4DB1EC00F35710 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4517B9561F4DB1EC00F35710 /* TabBarController.swift */; };
 		4517B9591F4DB21B00F35710 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4517B9581F4DB21B00F35710 /* CollectionViewController.swift */; };
 		4517B95B1F4DBBEF00F35710 /* CustomCollectionViewRecipeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4517B95A1F4DBBEF00F35710 /* CustomCollectionViewRecipeCell.xib */; };
 		4517B95D1F4DBC1E00F35710 /* CustomCollectionViewRecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4517B95C1F4DBC1E00F35710 /* CustomCollectionViewRecipeCell.swift */; };
 		4517B95F1F4EDAF000F35710 /* RecipesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4517B95E1F4EDAF000F35710 /* RecipesProvider.swift */; };
 		452807D41F4454DD004F0355 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452807D31F4454DD004F0355 /* AppDelegate.swift */; };
-		452807D61F4454DD004F0355 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452807D51F4454DD004F0355 /* TableViewController.swift */; };
 		452807D91F4454DD004F0355 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 452807D71F4454DD004F0355 /* Main.storyboard */; };
 		452807DB1F4454DD004F0355 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 452807DA1F4454DD004F0355 /* Assets.xcassets */; };
 		452807DE1F4454DD004F0355 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 452807DC1F4454DD004F0355 /* LaunchScreen.storyboard */; };
@@ -50,14 +48,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4517B9561F4DB1EC00F35710 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		4517B9581F4DB21B00F35710 /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		4517B95A1F4DBBEF00F35710 /* CustomCollectionViewRecipeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCollectionViewRecipeCell.xib; sourceTree = "<group>"; };
 		4517B95C1F4DBC1E00F35710 /* CustomCollectionViewRecipeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewRecipeCell.swift; sourceTree = "<group>"; };
 		4517B95E1F4EDAF000F35710 /* RecipesProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipesProvider.swift; sourceTree = "<group>"; };
 		452807D01F4454DD004F0355 /* Food2Fork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Food2Fork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		452807D31F4454DD004F0355 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		452807D51F4454DD004F0355 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		452807D81F4454DD004F0355 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		452807DA1F4454DD004F0355 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		452807DD1F4454DD004F0355 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -130,8 +126,6 @@
 			isa = PBXGroup;
 			children = (
 				452807D31F4454DD004F0355 /* AppDelegate.swift */,
-				4517B9561F4DB1EC00F35710 /* TabBarController.swift */,
-				452807D51F4454DD004F0355 /* TableViewController.swift */,
 				4517B9581F4DB21B00F35710 /* CollectionViewController.swift */,
 				45A760881F45B4A200F0C46A /* DetailViewController.swift */,
 				452808031F446EFB004F0355 /* CustomRecipeCell.swift */,
@@ -319,9 +313,7 @@
 				45A760951F4ABD3700F0C46A /* EmptySearchView.swift in Sources */,
 				45A760971F4B236300F0C46A /* NetworkClient.swift in Sources */,
 				4517B95D1F4DBC1E00F35710 /* CustomCollectionViewRecipeCell.swift in Sources */,
-				4517B9571F4DB1EC00F35710 /* TabBarController.swift in Sources */,
 				4528080A1F4578C7004F0355 /* Constants.swift in Sources */,
-				452807D61F4454DD004F0355 /* TableViewController.swift in Sources */,
 				45A7608B1F45C0A500F0C46A /* Recipe.swift in Sources */,
 				4517B95F1F4EDAF000F35710 /* RecipesProvider.swift in Sources */,
 				45A7608D1F45C45600F0C46A /* UIColor+Extensions.swift in Sources */,
