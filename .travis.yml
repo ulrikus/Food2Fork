@@ -1,7 +1,7 @@
 language: objective-c
 osx_image: xcode9.3
 xcode_sdk: iphonesimulator11.0
-script: Scripts/travis.sh
+script: travis.sh
 branches:
   only:
   - master
