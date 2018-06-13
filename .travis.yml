@@ -3,4 +3,4 @@ xcode_project: Food2Fork.xcodeproj
 xcode_scheme: Food2Fork
 osx_image: xcode9.4
 script:
-    - xcodebuild clean test -project Food2Fork.xcodeproj -scheme Food2Fork -destination "platform=iOS Simulator,name=iPhone X,OS=11" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO -quiet
+    - xcodebuild clean test -project Food2Fork.xcodeproj -scheme Food2Fork -destination "platform=iOS,name=Generic iOS Device,OS=11.0" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO -quiet
