@@ -1,11 +1,7 @@
-#language: swift
-#osx_image: xcode9.3
-#xcode_project: Food2Fork.xcodeproj
-#xcode_scheme: Food2Fork
-#xcode_sdk: iphonesimulator11.3
-
-language: objective-c  #1
-osx_image: xcode6.4 #2
-xcode_project: MovingHelper.xcodeproj #3
-xcode_scheme: MovingHelper #4
-xcode_sdk: iphonesimulator8.4 #5
+language: objective-c
+osx_image: xcode9.3
+xcode_sdk: iphonesimulator11.0
+script: Scripts/travis.sh
+branches:
+  only:
+  - master
