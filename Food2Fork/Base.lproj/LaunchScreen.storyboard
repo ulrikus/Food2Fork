@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -23,29 +21,43 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="testImageRecipe" translatesAutoresizingMaskIntoConstraints="NO" id="SZN-hf-vnY">
-                                <rect key="frame" x="16" y="0.0" width="343" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vjC-kB-qDv" userLabel="DimmerView">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Food2ForkLogo" translatesAutoresizingMaskIntoConstraints="NO" id="XZi-gp-nZR">
-                                <rect key="frame" x="0.0" y="237" width="375" height="192"/>
-                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aLI-yC-A5D" userLabel="LineView">
+                                <rect key="frame" x="0.0" y="289" width="375" height="90"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Food2ForkLogo" translatesAutoresizingMaskIntoConstraints="NO" id="XZi-gp-nZR">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.15686274509803921" green="0.15686274509803921" blue="0.15686274509803921" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="XZi-gp-nZR" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="aLI-yC-A5D" secondAttribute="leading" id="3yw-VW-nB0"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="90" id="7Ob-6R-0Mv"/>
+                                    <constraint firstItem="XZi-gp-nZR" firstAttribute="centerY" secondItem="aLI-yC-A5D" secondAttribute="centerY" id="9KQ-vB-Nb1"/>
+                                    <constraint firstItem="XZi-gp-nZR" firstAttribute="height" secondItem="aLI-yC-A5D" secondAttribute="height" id="MaP-4V-YF8"/>
+                                    <constraint firstItem="XZi-gp-nZR" firstAttribute="centerX" secondItem="aLI-yC-A5D" secondAttribute="centerX" id="kQp-Ty-BJS"/>
+                                    <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="XZi-gp-nZR" secondAttribute="trailing" id="pa3-W8-5Fu"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.19215686274509802" green="0.19215686274509802" blue="0.19215686274509802" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="XZi-gp-nZR" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="1DS-ev-kZP"/>
-                            <constraint firstItem="SZN-hf-vnY" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="4st-Lk-Ohp"/>
-                            <constraint firstItem="SZN-hf-vnY" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="AXf-nT-i7z"/>
-                            <constraint firstAttribute="trailing" secondItem="vjC-kB-qDv" secondAttribute="trailing" id="MMs-nV-LsN"/>
-                            <constraint firstAttribute="trailing" secondItem="XZi-gp-nZR" secondAttribute="trailing" id="Ohs-Qg-USE"/>
-                            <constraint firstItem="SZN-hf-vnY" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailingMargin" id="X9H-c5-cGs"/>
-                            <constraint firstItem="vjC-kB-qDv" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="iGG-my-dRJ"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="SZN-hf-vnY" secondAttribute="bottom" id="lbt-GV-BGy"/>
-                            <constraint firstItem="vjC-kB-qDv" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="mum-7M-SZx"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="vjC-kB-qDv" secondAttribute="bottom" id="pxQ-Yg-jp3"/>
-                            <constraint firstItem="XZi-gp-nZR" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="wrz-wa-5m3"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="vjC-kB-qDv" secondAttribute="bottom" id="8je-az-iCP"/>
+                            <constraint firstItem="aLI-yC-A5D" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="AVq-y2-3UB"/>
+                            <constraint firstItem="aLI-yC-A5D" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="Lhk-ph-bFl"/>
+                            <constraint firstAttribute="trailing" secondItem="aLI-yC-A5D" secondAttribute="trailing" id="NXI-Pa-84G"/>
+                            <constraint firstAttribute="trailing" secondItem="vjC-kB-qDv" secondAttribute="trailing" id="YeH-Ez-b0E"/>
+                            <constraint firstItem="vjC-kB-qDv" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="dXP-jf-V0A"/>
+                            <constraint firstAttribute="trailing" secondItem="SZN-hf-vnY" secondAttribute="trailing" id="djn-1H-8UF"/>
+                            <constraint firstItem="vjC-kB-qDv" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="gSc-VM-UGV"/>
+                            <constraint firstItem="SZN-hf-vnY" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="o9i-vo-zaI"/>
+                            <constraint firstItem="SZN-hf-vnY" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="zRn-32-kFv"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="SZN-hf-vnY" secondAttribute="bottom" id="zaM-zJ-dxH"/>
                         </constraints>
                     </view>
                 </viewController>

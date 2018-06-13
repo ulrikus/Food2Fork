@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CustomRecipeCell: UITableViewCell {
+class CustomRecipeCell: UICollectionViewCell {
     @IBOutlet weak var recipeImage: UIImageView!
     @IBOutlet weak var recipeTitleLabel: UILabel!
     private var gradientLayer: CAGradientLayer?
@@ -18,11 +18,14 @@ class CustomRecipeCell: UITableViewCell {
             
         fadeBottom(of: recipeImage)
         
-        self.addObserver(self, forKeyPath: "recipeImage.bounds", options: .new, context: nil)
+        layer.cornerRadius = 20
+        recipeImage.backgroundColor = .foodDarkGray
+        
+        addObserver(self, forKeyPath: "recipeImage.bounds", options: .new, context: nil)
     }
     
     deinit {
-        self.removeObserver(self, forKeyPath: "recipeImage.bounds")
+        removeObserver(self, forKeyPath: "recipeImage.bounds")
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -39,7 +42,7 @@ class CustomRecipeCell: UITableViewCell {
         
         gradient.frame = imageView.bounds
         gradient.colors = [UIColor.clear.cgColor, endColor.cgColor]
-        gradient.locations = [0.7, 1]
+        gradient.locations = [0.75, 1]
         
         imageView.layer.insertSublayer(gradient, at: 0)
         gradientLayer = gradient

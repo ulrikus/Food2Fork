@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="odj-gq-HLa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="MJq-Ln-FoP">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -38,29 +38,6 @@
             </objects>
             <point key="canvasLocation" x="1881" y="-655"/>
         </scene>
-        <!--Table View Controller-->
-        <scene sceneID="cEX-Jc-xJ1">
-            <objects>
-                <tableViewController id="OYX-dh-8Ib" customClass="TableViewController" customModule="Food2Fork" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="150" sectionHeaderHeight="28" sectionFooterHeight="28" id="fqL-ye-v2x">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.19215686274509802" green="0.19215686274509802" blue="0.19215686274509802" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="tintColor" red="0.50980392156862742" green="0.83529411764705885" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
-                        <connections>
-                            <outlet property="dataSource" destination="OYX-dh-8Ib" id="Xx3-x0-7uV"/>
-                            <outlet property="delegate" destination="OYX-dh-8Ib" id="1qp-qs-CMa"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="c8g-5R-XAW"/>
-                    <connections>
-                        <segue destination="Lb8-Ve-8KS" kind="show" identifier="detailViewSegue" id="G8V-z3-A2e"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SSn-sj-l3w" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1880.8" y="109.29535232383809"/>
-        </scene>
         <!--Detail View Controller-->
         <scene sceneID="yUA-Ip-o1O">
             <objects>
@@ -79,46 +56,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gYc-UX-pUO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2656.8000000000002" y="108.39580209895054"/>
-        </scene>
-        <!--List View-->
-        <scene sceneID="Rav-Aw-HLT">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fbI-em-4SR" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="List View" image="tableView" id="cFb-8Q-C9u"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="DJ7-pO-CSS">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="OYX-dh-8Ib" kind="relationship" relationship="rootViewController" id="ZWY-JW-VTB"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zQf-kd-arA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1144.8" y="110.19490254872565"/>
-        </scene>
-        <!--Tab Bar Controller-->
-        <scene sceneID="Yzh-bd-Wga">
-            <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="odj-gq-HLa" customClass="TabBarController" customModule="Food2Fork" customModuleProvider="target" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="Q3K-Yp-pg8">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.19215686269999999" green="0.19215686269999999" blue="0.19215686269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="tintColor" red="0.50980392159999999" green="0.83529411760000005" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="fbI-em-4SR" kind="relationship" relationship="viewControllers" id="zEU-Gk-obH"/>
-                        <segue destination="MJq-Ln-FoP" kind="relationship" relationship="viewControllers" id="THy-xa-J9x"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HMs-n8-WEW" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="314" y="-242"/>
+            <point key="canvasLocation" x="2697" y="-655"/>
         </scene>
         <!--Tile View-->
         <scene sceneID="PrS-bA-u2P">
@@ -142,9 +80,5 @@
     </scenes>
     <resources>
         <image name="collectionView" width="25" height="25"/>
-        <image name="tableView" width="24" height="16"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="XtC-E5-NBx"/>
-    </inferredMetricsTieBreakers>
 </document>
