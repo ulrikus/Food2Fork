@@ -79,8 +79,6 @@ public class EmptyView: UIView {
         return [rectangle, triangle, circle]
     }()
     
-    // MARK: - External properties / Dependency injection
-    
     // MARK: - Setup
     
     public override init(frame: CGRect) {
@@ -113,9 +111,9 @@ public class EmptyView: UIView {
         
         // We reposition the shapes after the EmptyView itself has layed out its frame.
         // At this point we will have its size even if we use constraints to lay it out.
-        triangle.center = CGPoint(x: slice, y: frame.height - (sizeOfTriangle.height / 2))
-        circle.center = CGPoint(x: slice * 2, y: frame.height - (sizeOfCircle.height / 2))
-        rectangle.center = CGPoint(x: slice * 7, y: frame.height - (sizeOfRectangle.height / 2))
+        triangle.center = CGPoint(x: slice * 2, y: frame.height - (sizeOfTriangle.height / 2))
+        circle.center = CGPoint(x: slice * 4, y: frame.height - (sizeOfCircle.height / 2))
+        rectangle.center = CGPoint(x: slice * 6, y: frame.height - (sizeOfRectangle.height / 2))
         
         // We add the behaviors after laying out the subviews to avoid issues with initial positions of the shapes
         animator.addBehavior(gravity)
