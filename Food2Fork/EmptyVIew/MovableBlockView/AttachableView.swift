@@ -1,8 +1,12 @@
 //
-//  Copyright © FINN.no AS, Inc. All rights reserved.
+//  AttachableView.swift
+//  Food2Fork
+//
+//  Created by Ulrik Utheim Sverdrup on 16.01.2018.
+//  Copyright © 2018 Utheim Sverdrup, Ulrik. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol AttachableView {
     var attach: UIAttachmentBehavior? { get set }
