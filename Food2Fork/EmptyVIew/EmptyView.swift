@@ -67,6 +67,11 @@ public class EmptyView: UIView {
         return itemBehavior
     }()
     
+    
+    private var rectangleSnapBehavior: UISnapBehavior?
+    private var triangleSnapBehavior: UISnapBehavior?
+    private var circleSnapBehavior: UISnapBehavior?
+    
     private lazy var motionManager: CMMotionManager = {
         let motionManager = CMMotionManager()
         motionManager.accelerometerUpdateInterval = 1 / 60
@@ -148,6 +153,78 @@ public class EmptyView: UIView {
                 itemBehavior.addLinearVelocity(sender.velocity(in: self), for: objectView)
             }
         }
+    }
+    
+    // MARK: - SnapBehavior methods
+    
+    @objc private func userHasLongPressed(gesture: UILongPressGestureRecognizer) {
+        if rectangleSnapBehavior != nil, triangleSnapBehavior != nil, circleSnapBehavior != nil {
+            removeAllSnapBehaviors()
+        }
+        let touchPosition = gesture.location(in: self)
+        setAllSnapBehaviors(to: touchPosition)
+        
+        if gesture.state == .ended {
+            removeAllSnapBehaviors()
+        }
+    }
+    
+    private func setAllSnapBehaviors(to point: CGPoint) {
+        rectangleSnapBehavior = UISnapBehavior(item: rectangle, snapTo: point)
+        triangleSnapBehavior = UISnapBehavior(item: triangle, snapTo: point)
+        circleSnapBehavior = UISnapBehavior(item: circle, snapTo: point)
+        
+        addAllSnapBehaviors()
+    }
+    
+    private func addAllSnapBehaviors() {
+        if let rectangleSnapBehavior = rectangleSnapBehavior {
+            animator.addBehavior(rectangleSnapBehavior)
+        }
+        if let triangleSnapBehavior = triangleSnapBehavior {
+            animator.addBehavior(triangleSnapBehavior)
+        }
+        if let circleSnapBehavior = circleSnapBehavior {
+            animator.addBehavior(circleSnapBehavior)
+        }
+    }
+    
+    private func removeAllSnapBehaviors() {
+        if let rectangleSnapBehavior = rectangleSnapBehavior {
+            animator.removeBehavior(rectangleSnapBehavior)
+        }
+        if let triangleSnapBehavior = triangleSnapBehavior {
+            animator.removeBehavior(triangleSnapBehavior)
+        }
+        if let circleSnapBehavior = circleSnapBehavior {
+            animator.removeBehavior(circleSnapBehavior)
+        }
+    }
+    
+    // MARK: 3D-touch
+    
+    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            if traitCollection.forceTouchCapability == .available {
+                let normalizedTouch = touch.force / touch.maximumPossibleForce
+                
+                if normalizedTouch >= 0.95 {
+                    if rectangleSnapBehavior != nil, triangleSnapBehavior != nil, circleSnapBehavior != nil {
+                        removeAllSnapBehaviors()
+                    }
+                    let touchPosition = touch.location(in: self)
+                    setAllSnapBehaviors(to: touchPosition)
+                }
+            } else {
+                let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(userHasLongPressed))
+                longPressGesture.minimumPressDuration = 2.5
+                addGestureRecognizer(longPressGesture)
+            }
+        }
+    }
+    
+    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        removeAllSnapBehaviors()
     }
 
     // MARK: - Accelerometer calculations
