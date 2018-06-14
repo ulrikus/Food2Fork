@@ -18,6 +18,7 @@ public class EmptyView: UIView {
     private let sizeOfRectangle = CGSize(width: 100, height: 100)
     
     private var hasLayedOut = false
+    private var shouldRearrangeBlocks = false
     
     private lazy var triangle: TriangleView = {
         let view = TriangleView(frame: CGRect(x: 0, y: 0, width: sizeOfTriangle.width, height: sizeOfTriangle.height))
@@ -67,7 +68,6 @@ public class EmptyView: UIView {
         return itemBehavior
     }()
     
-    
     private var rectangleSnapBehavior: UISnapBehavior?
     private var triangleSnapBehavior: UISnapBehavior?
     private var circleSnapBehavior: UISnapBehavior?
@@ -101,7 +101,13 @@ public class EmptyView: UIView {
         addSubview(triangle)
         addSubview(circle)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(viewDidRotate), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        
         getAccelerometerData()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     public override func layoutSubviews() {
@@ -151,6 +157,18 @@ public class EmptyView: UIView {
                 itemBehavior.addLinearVelocity(sender.velocity(in: self), for: objectView)
             }
         }
+    }
+    
+    @objc private func viewDidRotate() {
+        if hasLayedOut, shouldRearrangeBlocks {
+            setAllSnapBehaviors(to: center)
+            
+            let delayTime = 0.2
+            DispatchQueue.main.asyncAfter(deadline: .now() + delayTime) { [weak self] in
+                self?.removeAllSnapBehaviors()
+            }
+        }
+        shouldRearrangeBlocks = true
     }
     
     // MARK: - SnapBehavior methods
