@@ -14,14 +14,14 @@ class CollectionViewController: UICollectionViewController {
     var recipeToPass: ListRecipe?
     var flowLayout = ColumnFlowLayout()
     
-    private var emptySearchView: EmptySearchView {
-        return self.view as! EmptySearchView
+    private var emptySearchView: EmptyView {
+        return self.view as! EmptyView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let emptySearchView = UIView.instanceFromNib() as EmptySearchView
+        let emptySearchView = UIView.instanceFromNib() as EmptyView
         collectionView?.backgroundView = emptySearchView
         collectionView?.registerNib(CustomRecipeCell.self)
         collectionView?.backgroundColor = .foodBlack

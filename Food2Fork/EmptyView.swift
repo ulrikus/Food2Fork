@@ -8,6 +8,6 @@
 
 import UIKit
 
-class EmptySearchView: UIView {
+class EmptyView: UIView {
     
 }
