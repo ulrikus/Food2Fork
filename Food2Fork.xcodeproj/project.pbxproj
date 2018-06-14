@@ -26,6 +26,7 @@
 		45A760931F47254000F0C46A /* EmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45A760921F47254000F0C46A /* EmptyView.xib */; };
 		45A760951F4ABD3700F0C46A /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A760941F4ABD3700F0C46A /* EmptyView.swift */; };
 		45A760971F4B236300F0C46A /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A760961F4B236300F0C46A /* NetworkClient.swift */; };
+		D7354FA220D250BE002B7218 /* MovableBlockView in Resources */ = {isa = PBXBuildFile; fileRef = D7354FA120D250BE002B7218 /* MovableBlockView */; };
 		D7BD208420CFDD3B000AADA6 /* ColumnFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BD208320CFDD3B000AADA6 /* ColumnFlowLayout.swift */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +73,7 @@
 		45A760921F47254000F0C46A /* EmptyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyView.xib; sourceTree = "<group>"; };
 		45A760941F4ABD3700F0C46A /* EmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		45A760961F4B236300F0C46A /* NetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
+		D7354FA120D250BE002B7218 /* MovableBlockView */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MovableBlockView; sourceTree = "<group>"; };
 		D7BD208320CFDD3B000AADA6 /* ColumnFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnFlowLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -130,8 +132,7 @@
 				452808031F446EFB004F0355 /* CustomRecipeCell.swift */,
 				452808011F446EE9004F0355 /* CustomRecipeCell.xib */,
 				452807D71F4454DD004F0355 /* Main.storyboard */,
-				45A760941F4ABD3700F0C46A /* EmptyView.swift */,
-				45A760921F47254000F0C46A /* EmptyView.xib */,
+				D7354FA020D24DD4002B7218 /* EmptyVIew */,
 				452807DA1F4454DD004F0355 /* Assets.xcassets */,
 				457C54F31F4C3EB200CDC569 /* Media.xcassets */,
 				452807DC1F4454DD004F0355 /* LaunchScreen.storyboard */,
@@ -162,6 +163,16 @@
 				452807F51F4454DD004F0355 /* Info.plist */,
 			);
 			path = Food2ForkUITests;
+			sourceTree = "<group>";
+		};
+		D7354FA020D24DD4002B7218 /* EmptyVIew */ = {
+			isa = PBXGroup;
+			children = (
+				D7354FA120D250BE002B7218 /* MovableBlockView */,
+				45A760941F4ABD3700F0C46A /* EmptyView.swift */,
+				45A760921F47254000F0C46A /* EmptyView.xib */,
+			);
+			path = EmptyVIew;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,6 +289,7 @@
 				452808021F446EE9004F0355 /* CustomRecipeCell.xib in Resources */,
 				452807DE1F4454DD004F0355 /* LaunchScreen.storyboard in Resources */,
 				452807DB1F4454DD004F0355 /* Assets.xcassets in Resources */,
+				D7354FA220D250BE002B7218 /* MovableBlockView in Resources */,
 				452807D91F4454DD004F0355 /* Main.storyboard in Resources */,
 				457C54F41F4C3EB200CDC569 /* Media.xcassets in Resources */,
 				45A760931F47254000F0C46A /* EmptyView.xib in Resources */,
