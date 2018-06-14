@@ -108,9 +108,7 @@ public class EmptyView: UIView {
         super.layoutSubviews()
         
         // We only want to lay out once
-        guard hasLayedOut == false else {
-            return
-        }
+        guard hasLayedOut == false else { return }
         
         let slice = frame.width / 8
         
