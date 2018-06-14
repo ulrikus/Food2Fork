@@ -14,10 +14,6 @@ class CollectionViewController: UICollectionViewController {
     var recipeToPass: ListRecipe?
     var flowLayout = ColumnFlowLayout()
     
-    private var emptySearchView: EmptyView {
-        return self.view as! EmptyView
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
