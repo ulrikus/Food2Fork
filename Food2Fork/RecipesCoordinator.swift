@@ -8,22 +8,6 @@
 
 import Foundation
 
-enum FoodError: Error {
-    case requestError
-    case statusCodeNot2XX(Int)
-    case noData
-    case couldNotParseToJSON
-    
-    var localizedDescription: String {
-        switch self {
-        case .requestError: return "There was an error with your request:"
-        case .statusCodeNot2XX(let code): return "Your request returned a status code other than 2XX. Returned \(code)"
-        case .noData: return "No data was returned by the request."
-        case .couldNotParseToJSON: return "Could not parse data to JSON."
-        }
-    }
-}
-
 class RecipesCoordinator {
     
     let decoder = JSONDecoder()

@@ -27,6 +27,7 @@
 		45A760951F4ABD3700F0C46A /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A760941F4ABD3700F0C46A /* EmptyView.swift */; };
 		45A760971F4B236300F0C46A /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A760961F4B236300F0C46A /* NetworkClient.swift */; };
 		D71DCE9020D3CF690094B726 /* RecipesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71DCE8F20D3CF690094B726 /* RecipesCoordinator.swift */; };
+		D71DCE9220D3E0810094B726 /* FoodError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71DCE9120D3E0810094B726 /* FoodError.swift */; };
 		D7354FB120D259ED002B7218 /* TriangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7354FAD20D259ED002B7218 /* TriangleView.swift */; };
 		D7354FB220D259ED002B7218 /* AttachableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7354FAE20D259ED002B7218 /* AttachableView.swift */; };
 		D7354FB320D259ED002B7218 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7354FAF20D259ED002B7218 /* CircleView.swift */; };
@@ -78,6 +79,7 @@
 		45A760941F4ABD3700F0C46A /* EmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		45A760961F4B236300F0C46A /* NetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		D71DCE8F20D3CF690094B726 /* RecipesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesCoordinator.swift; sourceTree = "<group>"; };
+		D71DCE9120D3E0810094B726 /* FoodError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodError.swift; sourceTree = "<group>"; };
 		D7354FAD20D259ED002B7218 /* TriangleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriangleView.swift; sourceTree = "<group>"; };
 		D7354FAE20D259ED002B7218 /* AttachableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttachableView.swift; sourceTree = "<group>"; };
 		D7354FAF20D259ED002B7218 /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				45A760961F4B236300F0C46A /* NetworkClient.swift */,
 				4517B95E1F4EDAF000F35710 /* RecipesProvider.swift */,
 				D71DCE8F20D3CF690094B726 /* RecipesCoordinator.swift */,
+				D71DCE9120D3E0810094B726 /* FoodError.swift */,
 			);
 			path = Food2Fork;
 			sourceTree = "<group>";
@@ -340,6 +343,7 @@
 				45A760951F4ABD3700F0C46A /* EmptyView.swift in Sources */,
 				D7354FB120D259ED002B7218 /* TriangleView.swift in Sources */,
 				45A760971F4B236300F0C46A /* NetworkClient.swift in Sources */,
+				D71DCE9220D3E0810094B726 /* FoodError.swift in Sources */,
 				4528080A1F4578C7004F0355 /* Constants.swift in Sources */,
 				45A7608B1F45C0A500F0C46A /* Recipe.swift in Sources */,
 				D7354FB320D259ED002B7218 /* CircleView.swift in Sources */,
