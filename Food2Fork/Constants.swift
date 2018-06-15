@@ -17,12 +17,7 @@ struct Constants {
         static let APIPath = "/api"
         static let APIPathSearch = "/api/search"
         static let APIPathGet = "/api/get"
-    }
-    
-    // MARK: Network Methods
-    struct Food2ForkMethods {
-        static let Get = "GET"
-        static let Search = "SEARCH"
+        static let baseUrl = "https://food2fork.com/api/"
     }
     
     // MARK: Food2Fork Parameter Keys
@@ -67,4 +62,11 @@ struct Constants {
         static let SocialRank = "Social Ranking"
         static let F2FUrl = "URL of the recipe on Food2Fork.com"
     }
+}
+
+// MARK: Network Methods
+
+enum APIMethod: String {
+    case get = "GET"
+    case search = "SEARCH"
 }
