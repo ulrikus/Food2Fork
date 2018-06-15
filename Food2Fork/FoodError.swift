@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum FoodError: Error {
+static enum FoodError: Error {
     case requestError
     case statusCodeNot2XX(Int)
     case noData
