@@ -84,6 +84,8 @@ public class EmptyView: UIView {
         return [rectangle, triangle, circle]
     }()
     
+    private var lastOrientation: UIDeviceOrientation = .portrait
+    
     // MARK: - Setup
     
     public override init(frame: CGRect) {
@@ -160,15 +162,18 @@ public class EmptyView: UIView {
     }
     
     @objc private func viewDidRotate() {
-        if hasLayedOut, shouldRearrangeBlocks {
-            setAllSnapBehaviors(to: center)
-            
-            let delayTime = 0.2
-            DispatchQueue.main.asyncAfter(deadline: .now() + delayTime) { [weak self] in
-                self?.removeAllSnapBehaviors()
+        if !(lastOrientation.isFlat || UIDevice.current.orientation.isFlat) {
+            if hasLayedOut, shouldRearrangeBlocks {
+                setAllSnapBehaviors(to: center)
+                
+                let delayTime = 0.2
+                DispatchQueue.main.asyncAfter(deadline: .now() + delayTime) { [weak self] in
+                    self?.removeAllSnapBehaviors()
+                }
             }
+            shouldRearrangeBlocks = true
         }
-        shouldRearrangeBlocks = true
+        lastOrientation = UIDevice.current.orientation
     }
     
     // MARK: - SnapBehavior methods
