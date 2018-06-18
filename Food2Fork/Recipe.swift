@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ListRecipe: Codable { // TODO (UUS): Remove `2`
+struct ListRecipe: Codable {
     let count: Int
     let recipes: [Recipe]
 }
