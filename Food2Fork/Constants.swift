@@ -35,24 +35,7 @@ struct Constants {
         static let SortByRating = "r"       // Rating based off of social media scores to determine the best recipes
         static let SortByTrending = "t"     // Trend score based on how quickly they are gaining popularity
     }
-    
-    // MARK: Food2Fork Response Keys
-    struct Food2ForkResponseKeys {
-        static let Count = "count"                      // Number of recipes in result (Max 30)
-        static let Recipes = "recipes"                  // List of Recipe Parameters ->
-        static let Recipe = "recipe"
-        static let ImageUrl = "image_url"               // URL of the image
-        static let SourceUrl = "source_url"             // Original Url of the recipe on the publisher's site
-        static let F2FUrl = "f2f_url"                   // Url of the recipe on Food2Fork.com
-        static let Title = "title"                      // Title of the recipe
-        static let PublisherName = "publisher"          // Name of the Publisher
-        static let PublisherUrl = "publisher_url"       // Base url of the publisher
-        static let SocialRank = "social_rank"           // The Social Ranking of the Recipe (As determined by our Ranking Algorithm)
-        static let Page = "page"                        // The page number that is being returned (To keep track of concurrent requests)
-        static let Ingredients = "ingredients"          // The ingredients of this recipe
-        static let RecipeId = "recipe_id"               // Id of desired recipe as returned by Search Query
-    }
-    
+   
     // MARK: String Literals
     struct StringLiterals {
         static let SegueIdentifier = "detailViewSegue"
