@@ -17,12 +17,12 @@ class RecipesProvider {
     // MARK: Network request
     func getRecipeFromFood2ForkBySearch(searchPhrase: String, completionBlock: @escaping (() -> ())) {
         let parameters = [Constants.Food2ForkParameterKeys.SearchQuery: searchPhrase as AnyObject]
-        let method = Constants.Food2ForkMethods.Search
+        let method = APIMethod.search.rawValue
         lastSearchString = searchPhrase
         
-        let netwotkClient = NetworkClient()
+        let networkClient = NetworkClient()
         
-        netwotkClient.taskForSEARCHMethod(method: method, parameters: parameters) { (result, error) in
+        networkClient.taskForSEARCHMethod(method: method, parameters: parameters) { (result, error) in
             guard let result = result else {
                 print("\(String(describing: error))")
                 completionBlock()
