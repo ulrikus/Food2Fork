@@ -21,7 +21,7 @@ class NetworkClient {
         
         // Create session and request
         let session = URLSession.shared
-        let request = URLRequest(url: food2ForkURLFor(method: Constants.Food2ForkMethods.Get, parameters))
+        let request = URLRequest(url: food2ForkURLFor(method: APIMethod.get, parameters))
         
         // Make the request
         let task = session.dataTask(with: request) { (data, response, error) in
@@ -64,7 +64,7 @@ class NetworkClient {
         
         // Create session and request
         let session = URLSession.shared
-        let request = URLRequest(url: food2ForkURLFor(method: Constants.Food2ForkMethods.Search, parameters))
+        let request = URLRequest(url: food2ForkURLFor(method: APIMethod.search, parameters))
         
         // Make the request
         let task = session.dataTask(with: request) { (data, response, error) in
@@ -112,15 +112,15 @@ class NetworkClient {
     }
     
     // MARK: Helper for Creating a URL from Parameters
-    private func food2ForkURLFor(method: String, _ parameters: [String: AnyObject]) -> URL {
+    private func food2ForkURLFor(method: APIMethod, _ parameters: [String: AnyObject]) -> URL {
         
         var components = URLComponents()
         components.scheme = Constants.Food2Fork.APIScheme
         components.host = Constants.Food2Fork.APIHost
         
-        if method == Constants.Food2ForkMethods.Get {
+        if method == .get {
             components.path = Constants.Food2Fork.APIPathGet
-        } else if method == Constants.Food2ForkMethods.Search {
+        } else if method == .search {
             components.path = Constants.Food2Fork.APIPathSearch
         }
         

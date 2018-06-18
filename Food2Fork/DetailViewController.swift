@@ -100,7 +100,7 @@ class DetailViewController: UITableViewController {
     // MARK: Network request
     fileprivate func getRecipeFromFood2Fork() {
         let parameters = [Constants.Food2ForkParameterKeys.RecipeId: recipe?.recipeId as AnyObject]
-        let method = Constants.Food2ForkMethods.Get
+        let method = APIMethod.get.rawValue
         
         let netwotkClient = NetworkClient()
         
