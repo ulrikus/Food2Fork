@@ -9,6 +9,7 @@
 import Foundation
 
 enum FoodError: Error {
+    case urlError
     case responseError
     case statusCodeNot2XX(Int)
     case noData
@@ -16,6 +17,7 @@ enum FoodError: Error {
     
     var localizedDescription: String {
         switch self {
+        case .urlError: return "Not valid URL."
         case .responseError: return "There was an error with the response."
         case .statusCodeNot2XX(let code): return "Your request returned a status code other than 2XX. Returned \(code)."
         case .noData: return "No data was returned by the request."

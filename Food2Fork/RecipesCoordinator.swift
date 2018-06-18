@@ -38,7 +38,11 @@ class RecipesCoordinator {
     
     private func getRecipe(parameters: [String: AnyObject], completionBlock block: @escaping (_ result: Recipe?, _ error: Error?) -> Void) {
         
-        let url = food2ForkURLFor(method: .get, parameters)
+        guard let url = urlFor(method: .get, parameters) else {
+            block(nil, FoodError.urlError)
+            return
+        }
+        
         let request = URLRequest(url: url)
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -75,7 +79,11 @@ class RecipesCoordinator {
     
     private func getRecipesList(parameters: [String: AnyObject], completionBlock block: @escaping (_ result: ListRecipe?, _ error: Error?) -> Void) {
         
-        let url = food2ForkURLFor(method: .search, parameters)
+        guard let url = urlFor(method: .search, parameters) else {
+            block(nil, FoodError.urlError)
+            return
+        }
+        
         let request = URLRequest(url: url)
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -109,7 +117,7 @@ class RecipesCoordinator {
         task.resume()
     }
     
-    private func food2ForkURLFor(method: APIMethod, _ parameters: [String: AnyObject]) -> URL {
+    private func urlFor(method: APIMethod, _ parameters: [String: AnyObject]) -> URL? {
         var parameters = parameters
         parameters[Constants.Food2ForkParameterKeys.APIKey] = Constants.Food2ForkParameterValues.APIKey as AnyObject
         
@@ -129,6 +137,6 @@ class RecipesCoordinator {
             let queryItem = URLQueryItem(name: key, value: "\(value)")
             components.queryItems!.append(queryItem)
         }
-        return components.url! // TODO: Don't force unwrap
+        return components.url
     }
 }
