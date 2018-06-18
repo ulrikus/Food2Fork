@@ -33,7 +33,7 @@ class DetailViewController: UITableViewController {
         
         let recipeImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 300))
         self.tableView.tableHeaderView = recipeImageView
-        recipeImageView.contentMode = .scaleAspectFill
+        recipeImageView.contentMode = .scaleAspectFit
         
         performTaskInBackground() { [weak self] in
             if let imageUrl = self?.passedRecipe?.imageUrl, let imageData = try? Data(contentsOf: imageUrl) {
