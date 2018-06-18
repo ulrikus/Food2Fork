@@ -10,13 +10,14 @@ import UIKit
 
 class DetailViewController: UITableViewController {
     
-    var recipe: ListRecipe?
-    var detailRecipe: DetailRecipe?
+    var passedRecipe: Recipe?
+    var recipe: Recipe?
+    private let recipesCoordinator = RecipesCoordinator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = recipe?.title
+        self.navigationItem.title = passedRecipe?.title
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.foodWhite]
         
         self.tableView.backgroundColor = .foodBlack
@@ -24,19 +25,18 @@ class DetailViewController: UITableViewController {
         
         self.tableView.register(UITableViewCell.self)
         
-        getRecipeFromFood2Fork()
+        getRecipe()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         let recipeImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 300))
-        let imageURL = URL(string: (recipe?.imageUrlString)!)
         self.tableView.tableHeaderView = recipeImageView
-        recipeImageView.contentMode = .scaleAspectFit
+        recipeImageView.contentMode = .scaleAspectFill
         
-        performTaskInBackground() {
-            if let imageData = try? Data(contentsOf: imageURL!) {
+        performTaskInBackground() { [weak self] in
+            if let imageUrl = self?.passedRecipe?.imageUrl, let imageData = try? Data(contentsOf: imageUrl) {
                 performUIUpdatesOnMain {
                     recipeImageView.image = UIImage(data: imageData)
                 }
@@ -62,9 +62,12 @@ class DetailViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let recipe = recipe, let ingredients = recipe.ingredients else {
+            return 0
+        }
         switch section {
         case 0:
-            return detailRecipe?.ingredients.count ?? 0
+            return ingredients.count
         default:
             return 1
         }
@@ -81,15 +84,19 @@ class DetailViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeue(UITableViewCell.self, for: indexPath)
         
+        guard let recipe = recipe, let ingredients = recipe.ingredients else {
+            return cell
+        }
+        
         switch indexPath.section {
         case 0:
-            cell.textLabel?.text = detailRecipe?.ingredients[indexPath.row]
+            cell.textLabel?.text = ingredients[indexPath.row]
         case 1:
-            cell.textLabel?.text = detailRecipe?.publisherName
+            cell.textLabel?.text = recipe.publisher
         case 2:
-            cell.textLabel?.text = detailRecipe?.publisherUrl
+            cell.textLabel?.text = recipe.publisherUrl.absoluteString
         default:
-            cell.textLabel?.text = detailRecipe?.food2ForkUrlString
+            cell.textLabel?.text = recipe.food2forkUrl.absoluteString
         }
         
         cell.textLabel?.textColor = .foodWhite
@@ -98,23 +105,18 @@ class DetailViewController: UITableViewController {
     }
     
     // MARK: Network request
-    fileprivate func getRecipeFromFood2Fork() {
-        let parameters = [Constants.Food2ForkParameterKeys.RecipeId: recipe?.recipeId as AnyObject]
-        let method = APIMethod.get.rawValue
-        
-        let netwotkClient = NetworkClient()
-        
-        netwotkClient.taskForGETMethod(method: method, parameters: parameters) { (result, error) in
-            guard let result = result else {
-                print("\(String(describing: error))")
+    
+    fileprivate func getRecipe() {
+        guard let recipeId = passedRecipe?.recipeId else {
+            return
+        }
+        recipesCoordinator.getRecipe(with: recipeId) { [weak self] (recipe, error) in
+            guard let recipe = recipe, error == nil else {
                 return
             }
-            
-            let detailRecipe = DetailRecipe.createDetailRecipe(recipeDictionary: result)
-            
             performUIUpdatesOnMain {
-                self.detailRecipe = detailRecipe
-                self.tableView.reloadData()
+                self?.recipe = recipe
+                self?.tableView.reloadData()
             }
         }
     }
