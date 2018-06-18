@@ -12,25 +12,48 @@ class RecipesCoordinator {
     
     let decoder = JSONDecoder()
     
-    private func getRecipes(with parameters: [String: AnyObject], completionBlock block: @escaping (_ result: Recipe?, _ error: Error?) -> Void) {
-        var parameters = parameters
-        parameters[Constants.Food2ForkParameterKeys.APIKey] = Constants.Food2ForkParameterValues.APIKey as AnyObject
+    // MARK: - Coordinator API
+    
+    func getRecipe(with recipeId: String, completionBlock: @escaping ((_ result: Recipe?, _ error: Error?) -> ())) {
+        let parameters = [Constants.Food2ForkParameterKeys.RecipeId: recipeId as AnyObject]
         
-        // Create session and request
-        let session = URLSession.shared
-        let url = food2ForkURLFor(method: "", parameters)
-        var request = URLRequest(url: url)
-        request.httpMethod = Constants.Food2ForkMethods.Get
+        getRecipe(parameters: parameters) { (recipe, error) in
+            performUIUpdatesOnMain {
+                completionBlock(recipe, error)
+            }
+        }
+    }
+    
+    func performSearch(with searchPhrase: String, completionBlock: @escaping ((_ result: ListRecipe2?, _ error: Error?) -> ())) {
+        let parameters = [Constants.Food2ForkParameterKeys.SearchQuery: searchPhrase as AnyObject]
         
-        // Make the request
-        let task = session.dataTask(with: request) { (data, response, error) in
+        getRecipesList(parameters: parameters) { (recipeList, error) in
+            performUIUpdatesOnMain {
+                completionBlock(recipeList, error)
+            }
+        }
+    }
+    
+    // MARK: - Network requests
+    
+    private func getRecipe(parameters: [String: AnyObject], completionBlock block: @escaping (_ result: Recipe?, _ error: Error?) -> Void) {
+        
+        let url = food2ForkURLFor(method: .get, parameters)
+        let request = URLRequest(url: url)
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
         
             guard error == nil else {
-                block(nil, FoodError.requestError)
+                block(nil, error)
                 return
             }
             
-            if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 {
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode else {
+                block(nil, FoodError.statusCodeNot2XX(0))
+                return
+            }
+            
+            guard statusCode >= 200 && statusCode <= 299 else {
                 block(nil, FoodError.statusCodeNot2XX(statusCode))
                 return
             }
@@ -41,24 +64,62 @@ class RecipesCoordinator {
             }
             
             do {
-                let recipe = try self.decoder.decode(Recipe.self, from: data)
-                block(recipe, nil)
+                let recipeTopLayer = try self.decoder.decode(RecipeTopLayer.self, from: data)
+                block(recipeTopLayer.recipe, nil)
             } catch {
-                block(nil, FoodError.couldNotParseToJSON)
+                block(nil, FoodError.couldNotParseToJSON(data))
             }
         }
         task.resume()
     }
     
-    private func food2ForkURLFor(method: String, _ parameters: [String: AnyObject]) -> URL {
+    private func getRecipesList(parameters: [String: AnyObject], completionBlock block: @escaping (_ result: ListRecipe2?, _ error: Error?) -> Void) {
+        
+        let url = food2ForkURLFor(method: .search, parameters)
+        let request = URLRequest(url: url)
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            
+            guard error == nil else {
+                block(nil, error)
+                return
+            }
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode else {
+                block(nil, FoodError.statusCodeNot2XX(0))
+                return
+            }
+            
+            guard statusCode >= 200 && statusCode <= 299 else {
+                block(nil, FoodError.statusCodeNot2XX(statusCode))
+                return
+            }
+            
+            guard let data = data else {
+                block(nil, FoodError.noData)
+                return
+            }
+            
+            do {
+                let recipesList = try self.decoder.decode(ListRecipe2.self, from: data)
+                block(recipesList, nil)
+            } catch {
+                block(nil, FoodError.couldNotParseToJSON(data))
+            }
+        }
+        task.resume()
+    }
+    
+    private func food2ForkURLFor(method: APIMethod, _ parameters: [String: AnyObject]) -> URL {
+        var parameters = parameters
+        parameters[Constants.Food2ForkParameterKeys.APIKey] = Constants.Food2ForkParameterValues.APIKey as AnyObject
         
         var components = URLComponents()
         components.scheme = Constants.Food2Fork.APIScheme
         components.host = Constants.Food2Fork.APIHost
         
-        if method == Constants.Food2ForkMethods.Get {
+        if method == .get {
             components.path = Constants.Food2Fork.APIPathGet
-        } else if method == Constants.Food2ForkMethods.Search {
+        } else if method == .search {
             components.path = Constants.Food2Fork.APIPathSearch
         }
         
@@ -68,6 +129,6 @@ class RecipesCoordinator {
             let queryItem = URLQueryItem(name: key, value: "\(value)")
             components.queryItems!.append(queryItem)
         }
-        return components.url!
+        return components.url! // TODO: Don't force unwrap
     }
 }
