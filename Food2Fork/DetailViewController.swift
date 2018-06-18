@@ -44,21 +44,10 @@ class DetailViewController: UITableViewController {
         }
     }
     
+    // MARK: - TableView Data source
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 4
-    }
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0:
-            return Constants.StringLiterals.Ingredients
-        case 1:
-            return Constants.StringLiterals.PublisherName
-        case 2:
-            return Constants.StringLiterals.PublisherUrl
-        default:
-            return Constants.StringLiterals.F2FUrl
-        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -70,14 +59,6 @@ class DetailViewController: UITableViewController {
             return ingredients.count
         default:
             return 1
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row % 2 == 0 {
-            cell.backgroundColor = .foodDarkBlack
-        } else {
-            cell.backgroundColor = .foodBlack
         }
     }
     
@@ -104,7 +85,57 @@ class DetailViewController: UITableViewController {
         return cell
     }
     
-    // MARK: Network request
+    // MARK: - TableView delegate
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return Constants.StringLiterals.Ingredients
+        case 1:
+            return Constants.StringLiterals.PublisherName
+        case 2:
+            return Constants.StringLiterals.PublisherUrl
+        default:
+            return Constants.StringLiterals.F2FUrl
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row % 2 == 0 {
+            cell.backgroundColor = .foodDarkBlack
+        } else {
+            cell.backgroundColor = .foodBlack
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        switch indexPath.section {
+        case 0: // Ingredients
+            break
+        case 1: // Name of publisher
+            UIPasteboard.general.string = recipe?.publisher
+            break
+        case 2: // Base URL for publisher
+            openUrlInSafari(url: recipe?.publisherUrl)
+            break
+        default: // URL of the recipe on Food2Fork.com
+            openUrlInSafari(url: recipe?.food2forkUrl)
+            break
+        }
+    }
+    
+    // MARK: - Actions
+    
+    private func openUrlInSafari(url: URL?) {
+        guard let url = url else {
+            return
+        }
+        UIApplication.shared.open(url, options: [:])
+    }
+    
+    // MARK: - Network request
     
     fileprivate func getRecipe() {
         guard let recipeId = passedRecipe?.recipeId else {
