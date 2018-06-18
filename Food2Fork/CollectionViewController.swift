@@ -11,8 +11,12 @@ import UIKit
 class CollectionViewController: UICollectionViewController {
     
     var searchController: UISearchController!
-    var recipeToPass: ListRecipe?
+    var recipeToPass: Recipe?
     var flowLayout = ColumnFlowLayout()
+    var recipesList = ListRecipe2.init(count: 0, recipes: [])
+    private var lastSearchString = ""
+    
+    private let recipesCoordinator = RecipesCoordinator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,10 +51,9 @@ class CollectionViewController: UICollectionViewController {
     // MARK: Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == Constants.StringLiterals.SegueIdentifier)
-        {
+        if(segue.identifier == Constants.StringLiterals.SegueIdentifier) {
             let viewController = segue.destination as! DetailViewController
-            viewController.recipe = recipeToPass
+            viewController.passedRecipe = recipeToPass
         }
     }
     
@@ -61,28 +64,30 @@ class CollectionViewController: UICollectionViewController {
             return
         }
         
-        RecipesProvider.sharedProvider.getRecipeFromFood2ForkBySearch(searchPhrase: searchBarText) {
-            if RecipesProvider.sharedProvider.listRecipes.count == 0 {
-                print("No recipes found. Search again.")
-                self.presentNoSearchResultAlert()
+        recipesCoordinator.performSearch(with: searchBarText) { [weak self] (recipesList, error) in
+            guard let recipesList = recipesList, error == nil else {
                 return
+            }
+            if recipesList.count == 0 {
+                self?.presentNoSearchResultAlert(with: searchBarText)
             } else {
-                self.collectionView?.reloadData()
+                self?.recipesList = recipesList
+                self?.collectionView?.reloadData()
             }
         }
     }
     
-    func presentNoSearchResultAlert() {
+    func presentNoSearchResultAlert(with searchPhrase: String) {
         // Create the alert controller
-        let alertController = UIAlertController(title: "No search result for:", message: "\(RecipesProvider.sharedProvider.lastSearchString ?? "")", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "No search result for:", message: "\(searchPhrase)", preferredStyle: .alert)
         
         alertController.view.tintColor = .foodGreen
         alertController.view.backgroundColor = .foodDarkBlack
-        alertController.view.layer.cornerRadius = 30
+        alertController.view.layer.cornerRadius = 20
         
         // Create the actions
-        let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel) { alert in
-            
+        let okAction = UIAlertAction(title: "Ok", style: .cancel) { [weak self] alert in
+            self?.searchController.searchBar.becomeFirstResponder()
         }
         
         // Add the actions
@@ -97,39 +102,37 @@ class CollectionViewController: UICollectionViewController {
 
 extension CollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if RecipesProvider.sharedProvider.listRecipes.count == 0 {
-            self.collectionView?.backgroundView?.isHidden = false
+        if recipesList.count == 0 {
+            collectionView.backgroundView?.isHidden = false
         } else {
-            self.collectionView?.backgroundView?.isHidden = true
+            collectionView.backgroundView?.isHidden = true
         }
         
-        return RecipesProvider.sharedProvider.listRecipes.count
+        return recipesList.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeue(CustomRecipeCell.self, for: indexPath)
         
-        let recipeImage = RecipesProvider.sharedProvider.listRecipes[indexPath.row]
-        let imageURL = URL(string: recipeImage.imageUrlString)
+        let recipe = recipesList.recipes[indexPath.row]
         
         cell.recipeImage?.image = UIImage()
-        cell.recipeTitleLabel?.text = recipeImage.title
+        cell.recipeTitleLabel?.text = recipe.title
         
         performTaskInBackground() {
-            if let imageData = try? Data(contentsOf: imageURL!) {
+            if let imageData = try? Data(contentsOf: recipe.imageUrl) {
                 performUIUpdatesOnMain {
                     cell.recipeImage?.image = UIImage(data: imageData)
                 }
             }
         }
-        
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        let recipe = RecipesProvider.sharedProvider.listRecipes[indexPath.row]
+        let recipe = recipesList.recipes[indexPath.row]
         recipeToPass = recipe
         
         performSegue(withIdentifier: Constants.StringLiterals.SegueIdentifier, sender: self)
@@ -147,7 +150,7 @@ extension CollectionViewController: UISearchBarDelegate {
         }
         
         if searchBarText.isEmpty {
-            RecipesProvider.sharedProvider.listRecipes = []
+            recipesList = ListRecipe2(count: 0, recipes: [])
             collectionView?.backgroundView?.isHidden = false
             collectionView?.reloadData()
         } else {
@@ -156,9 +159,14 @@ extension CollectionViewController: UISearchBarDelegate {
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.text = RecipesProvider.sharedProvider.lastSearchString   // Keep text from former search
+        searchBar.text = lastSearchString   // Keep text from former search
     }
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        RecipesProvider.sharedProvider.lastSearchString = searchBar.text!  // Store searchPhrase
+        lastSearchString = searchBar.text!  // Store searchPhrase
+        if searchBar.text == "" {
+            searchBar.placeholder = "Search"
+        } else {
+            searchBar.placeholder = lastSearchString
+        }
     }
 }
