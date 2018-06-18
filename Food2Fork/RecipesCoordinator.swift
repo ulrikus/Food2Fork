@@ -39,7 +39,7 @@ class RecipesCoordinator {
     private func getRecipe(parameters: [String: AnyObject], completionBlock block: @escaping (_ result: Recipe?, _ error: Error?) -> Void) {
         
         guard let url = urlFor(method: .get, parameters) else {
-            block(nil, FoodError.urlError)
+            block(nil, FoodError.nonvalidUrl)
             return
         }
         
@@ -80,7 +80,7 @@ class RecipesCoordinator {
     private func getRecipesList(parameters: [String: AnyObject], completionBlock block: @escaping (_ result: ListRecipe?, _ error: Error?) -> Void) {
         
         guard let url = urlFor(method: .search, parameters) else {
-            block(nil, FoodError.urlError)
+            block(nil, FoodError.nonvalidUrl)
             return
         }
         
