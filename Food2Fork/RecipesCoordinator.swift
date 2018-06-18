@@ -18,7 +18,7 @@ class RecipesCoordinator {
         let parameters = [Constants.Food2ForkParameterKeys.RecipeId: recipeId as AnyObject]
         
         getRecipe(parameters: parameters) { (recipe, error) in
-            performUIUpdatesOnMain {
+            DispatchQueue.main.async {
                 completionBlock(recipe, error)
             }
         }
@@ -28,7 +28,7 @@ class RecipesCoordinator {
         let parameters = [Constants.Food2ForkParameterKeys.SearchQuery: searchPhrase as AnyObject]
         
         getRecipesList(parameters: parameters) { (recipeList, error) in
-            performUIUpdatesOnMain {
+            DispatchQueue.main.async {
                 completionBlock(recipeList, error)
             }
         }

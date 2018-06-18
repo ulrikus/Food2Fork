@@ -37,7 +37,7 @@ class DetailViewController: UITableViewController {
         
         performTaskInBackground() { [weak self] in
             if let imageUrl = self?.passedRecipe?.imageUrl, let imageData = try? Data(contentsOf: imageUrl) {
-                performUIUpdatesOnMain {
+                DispatchQueue.main.async {
                     recipeImageView.image = UIImage(data: imageData)
                 }
             }
@@ -114,7 +114,7 @@ class DetailViewController: UITableViewController {
             guard let recipe = recipe, error == nil else {
                 return
             }
-            performUIUpdatesOnMain {
+            DispatchQueue.main.async {
                 self?.recipe = recipe
                 self?.tableView.reloadData()
             }

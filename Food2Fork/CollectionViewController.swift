@@ -121,7 +121,7 @@ extension CollectionViewController {
         
         performTaskInBackground() {
             if let imageData = try? Data(contentsOf: recipe.imageUrl) {
-                performUIUpdatesOnMain {
+                DispatchQueue.main.async {
                     cell.recipeImage?.image = UIImage(data: imageData)
                 }
             }
