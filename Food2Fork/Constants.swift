@@ -10,7 +10,7 @@ import UIKit
 
 struct Constants {
     
-    // MARK: Food2Fork
+    // MARK: Food2Fork URL base
     struct Food2Fork {
         static let APIScheme = "http"
         static let APIHost = "food2fork.com"
@@ -47,7 +47,7 @@ struct Constants {
     }
 }
 
-// MARK: Network Methods
+// MARK: - Network Methods
 
 enum APIMethod: String {
     case get = "GET"
