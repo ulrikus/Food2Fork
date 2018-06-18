@@ -13,6 +13,10 @@ struct ListRecipe2: Codable { // TODO (UUS): Remove `2`
     let recipes: [Recipe]
 }
 
+struct RecipeTopLayer: Codable {
+    let recipe: Recipe
+}
+
 struct Recipe: Codable {
     let publisher: String
     let food2forkUrl: URL
