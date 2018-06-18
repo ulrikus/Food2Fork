@@ -10,13 +10,14 @@ import UIKit
 
 class DetailViewController: UITableViewController {
     
-    var recipe: ListRecipe?
-    var detailRecipe: DetailRecipe?
+    var passedRecipe: Recipe?
+    var recipe: Recipe?
+    private let recipesCoordinator = RecipesCoordinator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = recipe?.title
+        self.navigationItem.title = passedRecipe?.title
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.foodWhite]
         
         self.tableView.backgroundColor = .foodBlack
@@ -24,29 +25,67 @@ class DetailViewController: UITableViewController {
         
         self.tableView.register(UITableViewCell.self)
         
-        getRecipeFromFood2Fork()
+        getRecipe()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         let recipeImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 300))
-        let imageURL = URL(string: (recipe?.imageUrlString)!)
         self.tableView.tableHeaderView = recipeImageView
         recipeImageView.contentMode = .scaleAspectFit
         
-        performTaskInBackground() {
-            if let imageData = try? Data(contentsOf: imageURL!) {
-                performUIUpdatesOnMain {
+        performTaskInBackground() { [weak self] in
+            if let imageUrl = self?.passedRecipe?.imageUrl, let imageData = try? Data(contentsOf: imageUrl) {
+                DispatchQueue.main.async {
                     recipeImageView.image = UIImage(data: imageData)
                 }
             }
         }
     }
     
+    // MARK: - TableView Data source
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 4
     }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let recipe = recipe, let ingredients = recipe.ingredients else {
+            return 0
+        }
+        switch section {
+        case 0:
+            return ingredients.count
+        default:
+            return 1
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeue(UITableViewCell.self, for: indexPath)
+        
+        guard let recipe = recipe, let ingredients = recipe.ingredients else {
+            return cell
+        }
+        
+        switch indexPath.section {
+        case 0:
+            cell.textLabel?.text = ingredients[indexPath.row]
+        case 1:
+            cell.textLabel?.text = recipe.publisher
+        case 2:
+            cell.textLabel?.text = recipe.publisherUrl.absoluteString
+        default:
+            cell.textLabel?.text = recipe.food2forkUrl.absoluteString
+        }
+        
+        cell.textLabel?.textColor = .foodWhite
+        
+        return cell
+    }
+    
+    // MARK: - TableView delegate
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
@@ -61,15 +100,6 @@ class DetailViewController: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return detailRecipe?.ingredients.count ?? 0
-        default:
-            return 1
-        }
-    }
-    
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row % 2 == 0 {
             cell.backgroundColor = .foodDarkBlack
@@ -78,43 +108,46 @@ class DetailViewController: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeue(UITableViewCell.self, for: indexPath)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         
         switch indexPath.section {
-        case 0:
-            cell.textLabel?.text = detailRecipe?.ingredients[indexPath.row]
-        case 1:
-            cell.textLabel?.text = detailRecipe?.publisherName
-        case 2:
-            cell.textLabel?.text = detailRecipe?.publisherUrl
-        default:
-            cell.textLabel?.text = detailRecipe?.food2ForkUrlString
+        case 0: // Ingredients
+            break
+        case 1: // Name of publisher
+            UIPasteboard.general.string = recipe?.publisher
+            break
+        case 2: // Base URL for publisher
+            openUrlInSafari(url: recipe?.publisherUrl)
+            break
+        default: // URL of the recipe on Food2Fork.com
+            openUrlInSafari(url: recipe?.food2forkUrl)
+            break
         }
-        
-        cell.textLabel?.textColor = .foodWhite
-        
-        return cell
     }
     
-    // MARK: Network request
-    fileprivate func getRecipeFromFood2Fork() {
-        let parameters = [Constants.Food2ForkParameterKeys.RecipeId: recipe?.recipeId as AnyObject]
-        let method = Constants.Food2ForkMethods.Get
-        
-        let netwotkClient = NetworkClient()
-        
-        netwotkClient.taskForGETMethod(method: method, parameters: parameters) { (result, error) in
-            guard let result = result else {
-                print("\(String(describing: error))")
+    // MARK: - Actions
+    
+    private func openUrlInSafari(url: URL?) {
+        guard let url = url else {
+            return
+        }
+        UIApplication.shared.open(url, options: [:])
+    }
+    
+    // MARK: - Network request
+    
+    fileprivate func getRecipe() {
+        guard let recipeId = passedRecipe?.recipeId else {
+            return
+        }
+        recipesCoordinator.getRecipe(with: recipeId) { [weak self] (recipe, error) in
+            guard let recipe = recipe, error == nil else {
                 return
             }
-            
-            let detailRecipe = DetailRecipe.createDetailRecipe(recipeDictionary: result)
-            
-            performUIUpdatesOnMain {
-                self.detailRecipe = detailRecipe
-                self.tableView.reloadData()
+            DispatchQueue.main.async {
+                self?.recipe = recipe
+                self?.tableView.reloadData()
             }
         }
     }
