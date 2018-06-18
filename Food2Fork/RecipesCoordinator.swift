@@ -24,7 +24,7 @@ class RecipesCoordinator {
         }
     }
     
-    func performSearch(with searchPhrase: String, completionBlock: @escaping ((_ result: ListRecipe2?, _ error: Error?) -> ())) {
+    func performSearch(with searchPhrase: String, completionBlock: @escaping ((_ result: ListRecipe?, _ error: Error?) -> ())) {
         let parameters = [Constants.Food2ForkParameterKeys.SearchQuery: searchPhrase as AnyObject]
         
         getRecipesList(parameters: parameters) { (recipeList, error) in
@@ -73,7 +73,7 @@ class RecipesCoordinator {
         task.resume()
     }
     
-    private func getRecipesList(parameters: [String: AnyObject], completionBlock block: @escaping (_ result: ListRecipe2?, _ error: Error?) -> Void) {
+    private func getRecipesList(parameters: [String: AnyObject], completionBlock block: @escaping (_ result: ListRecipe?, _ error: Error?) -> Void) {
         
         let url = food2ForkURLFor(method: .search, parameters)
         let request = URLRequest(url: url)
@@ -100,7 +100,7 @@ class RecipesCoordinator {
             }
             
             do {
-                let recipesList = try self.decoder.decode(ListRecipe2.self, from: data)
+                let recipesList = try self.decoder.decode(ListRecipe.self, from: data)
                 block(recipesList, nil)
             } catch {
                 block(nil, FoodError.couldNotParseToJSON(data))

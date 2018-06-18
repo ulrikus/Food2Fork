@@ -13,7 +13,7 @@ class CollectionViewController: UICollectionViewController {
     var searchController: UISearchController!
     var recipeToPass: Recipe?
     var flowLayout = ColumnFlowLayout()
-    var recipesList = ListRecipe2.init(count: 0, recipes: [])
+    var recipesList = ListRecipe.init(count: 0, recipes: [])
     private var lastSearchString = ""
     
     private let recipesCoordinator = RecipesCoordinator()
@@ -150,7 +150,7 @@ extension CollectionViewController: UISearchBarDelegate {
         }
         
         if searchBarText.isEmpty {
-            recipesList = ListRecipe2(count: 0, recipes: [])
+            recipesList = ListRecipe(count: 0, recipes: [])
             collectionView?.backgroundView?.isHidden = false
             collectionView?.reloadData()
         } else {
